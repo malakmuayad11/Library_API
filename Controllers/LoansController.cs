@@ -1,10 +1,12 @@
 ﻿using Library_Business;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
 namespace Library_System_API.Controllers
 {
+    [Authorize]
     [Route("api/Library/Loans")]
     [ApiController]
     public class LoansController : ControllerBase
@@ -15,6 +17,7 @@ namespace Library_System_API.Controllers
         /// <returns>A list of loans with their appropriate info.</returns>
         [HttpGet(Name = "GetAllLoans")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<clsLoanGetAllDTO>>> GetAllLoansAsync()
         {
@@ -36,6 +39,7 @@ namespace Library_System_API.Controllers
         /// and no server error occurs.</returns>
         [HttpPost(Name = "AddNewLoan")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult AddNewLoan(int BookID, int MemberID, int CreatedByUserID)
@@ -60,6 +64,7 @@ namespace Library_System_API.Controllers
         /// <returns>An object full of all loan's info.</returns>
         [HttpGet("{LoanID}", Name = "GetLoanByID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<clsLoanDTO> GetLoanByID(int LoanID)
@@ -82,6 +87,7 @@ namespace Library_System_API.Controllers
         /// <returns>An object full of all loan's info.</returns>
         [HttpGet("Loan/{MemberID}", Name = "GetLoanByMemberID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<clsLoanDTO> GetLoanByMemberID(int MemberID)
@@ -104,6 +110,7 @@ namespace Library_System_API.Controllers
         /// <returns>Whether the loan is returned successfully or not.</returns>
         [HttpPatch("Return/{LoanID}", Name = "Return")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> Return(int LoanID)
@@ -126,6 +133,7 @@ namespace Library_System_API.Controllers
         /// <returns>Whether a loan can be returned.</returns>
         [HttpGet("CanReturnBook/{LoanID}", Name = "CanReturnBook")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> CanReturnBook(int LoanID) =>
             (LoanID < 0) ? BadRequest("Input is invalid") : Ok(clsLoan.CanReturnBook(LoanID));
@@ -137,6 +145,7 @@ namespace Library_System_API.Controllers
         /// <returns>Whether the loan can be extended.</returns>
         [HttpGet("CanExtendLoan/{LoanID}", Name = "CanExtendLoan")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> CanExtendLoan(int LoanID) =>
             (LoanID < 0) ? BadRequest("Input is invalid") : Ok(clsLoan.CanExtendLoan(LoanID));
@@ -150,6 +159,7 @@ namespace Library_System_API.Controllers
         /// <returns>Whether the loan is extended successfully or not.</returns>
         [HttpPatch("ExtendDueDate/{LoanID}/{DueDate}", Name = "ExtendDueDate")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> ExtendDueDate(int LoanID, DateTime DueDate) =>
             (LoanID < 0) ? BadRequest("Input is invalid") : Ok(clsLoan.ExtendDueDate(LoanID, DueDate));

@@ -97,3 +97,11 @@ C:\Programming\Library_System_API\bin\Debug\net8.0\Library_Business.pdb
 C:\Programming\Library_System_API\bin\Debug\net8.0\Models.pdb
 C:\Programming\Library_System_API\bin\Debug\net8.0\Library_Data.pdb
 C:\Programming\Library_System_API\obj\Debug\net8.0\swae.build.ex.cache
+C:\Programming\Library_System_API\obj\Debug\net8.0\Library_System_API.sourcelink.json
+C:\Programming\Library_System_API\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Programming\Library_System_API\bin\Debug\net8.0\Azure.Extensions.AspNetCore.Configuration.Secrets.dll
+C:\Programming\Library_System_API\bin\Debug\net8.0\Azure.Security.KeyVault.Secrets.dll
+C:\Programming\Library_System_API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Programming\Library_System_API\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\Programming\Library_System_API\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Programming\Library_System_API\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll

@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "Library_System_API.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Models.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Library_System_API.Controllers.AuthorsController",
     "Method": "GetByBookID",
     "RelativePath": "api/Library/Authors/{BookID}",

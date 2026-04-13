@@ -1,10 +1,12 @@
 ﻿using Library_Business;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
 namespace Library_System_API.Controllers
 {
+    [Authorize]
     [Route("api/Library/MembershipTypes")]
     [ApiController]
     public class MembershipTypesController : ControllerBase
@@ -15,6 +17,7 @@ namespace Library_System_API.Controllers
         /// <returns>A list of membership tyes.</returns>
         [HttpGet("All", Name = "GetAllMembershipTypesAsync")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<clsMembershipTypeDTO>>> GetAllMembershipTypesAsync()
         {
@@ -33,6 +36,7 @@ namespace Library_System_API.Controllers
         /// <returns>An object full of all membership type's info.</returns>
         [HttpGet("{MembershipTypeID}", Name = "GetMembershipTypeByID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<clsMembershipTypeDTO> GetMembershipTypeByID(int MembershipTypeID)

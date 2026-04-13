@@ -1,10 +1,12 @@
 ﻿using Library_Business;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
 namespace Library_System_API.Controllers
 {
+    [Authorize]
     [Route("api/Library/Fines")]
     [ApiController]
     public class FinesController : ControllerBase
@@ -17,6 +19,7 @@ namespace Library_System_API.Controllers
         /// and no server error occurs.</returns>
         [HttpPost(Name = "AddNewFine")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<clsFineDTO> AddNewFine(clsFineDTO addedFine)
@@ -42,6 +45,7 @@ namespace Library_System_API.Controllers
         /// <returns>A list of fines with their info.</returns>
         [HttpGet("All", Name = "GetAllFinesAsync")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<clsFineDTO>>> GetAllFinesAsync()
         {
@@ -61,6 +65,7 @@ namespace Library_System_API.Controllers
         /// <returns>Whether the payment status is paid successfully or not.</returns>
         [HttpPatch("PaymentStatus/{FineID}/{IsPaid}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> UpdatePaymentStatus(int FineID, bool IsPaid) =>
             (FineID < 0) ? BadRequest("Input is invalid") : Ok(clsFine.UpdatePaymentStatus(FineID, IsPaid));
@@ -72,6 +77,7 @@ namespace Library_System_API.Controllers
         /// <returns>Whether the fine amount is updated successfully or not.</returns>
         [HttpPatch("Pay/{FineID}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> PayFines(int FineID) =>
             (FineID < 0) ? BadRequest("Input is invalid") : Ok(clsFine.PayFines(FineID));
@@ -85,6 +91,7 @@ namespace Library_System_API.Controllers
         /// the method will return -1.</returns>
         [HttpGet("UnpaidFees/{MemberID}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<decimal> GetMemberUnpaidFees(int MemberID) =>
             (MemberID < 0) ? BadRequest("Input is invalid") : Ok(clsFine.GetMemberUnpaidFees(MemberID) ?? 0);

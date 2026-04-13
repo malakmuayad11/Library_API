@@ -1,10 +1,12 @@
 ﻿using Library_Business;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
 namespace Library_System_API.Controllers
 {
+    [Authorize]
     [Route("api/Library/Courses")]
     [ApiController]
     public class CoursesController : ControllerBase
@@ -16,6 +18,7 @@ namespace Library_System_API.Controllers
         /// <returns>An object full of all course's info.</returns>
         [HttpGet("{CourseID}", Name = "GetCourseByID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<clsCourseDTO> GetCourseByID(int CourseID)
@@ -39,6 +42,7 @@ namespace Library_System_API.Controllers
         /// and no server error occurs.</returns>
         [HttpPost(Name = "AddNewCourse")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult AddNewCourse(clsCourseDTO addedCourse)
@@ -70,6 +74,7 @@ namespace Library_System_API.Controllers
         /// is valid, and no server error occurs.</returns>
         [HttpPut("{CourseID}", Name = "UpdateCourse")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -103,6 +108,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <returns>A list of members with their appropriate info.</returns>
         [HttpGet("All", Name = "GetAllCoursesAsync")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<clsCourseGetAllDTO>>> GetAllCoursesAsync()
@@ -123,6 +129,7 @@ namespace Library_System_API.Controllers
         /// <returns>Whether the member is enrolled in the course successfully or not.</returns>
         [HttpGet("EnrollMember/{MemberID}/{CourseID}", Name = "EnrollMemberInCourse")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> EnrollMemberInCourse(int MemberID, int CourseID) =>
             (MemberID < 0 || CourseID < 0) ?
@@ -137,6 +144,7 @@ namespace Library_System_API.Controllers
         /// the presentation layer.</returns>
         [HttpGet("MembersForCourse/{CourseID}", Name = "GetAllMembersForCourseAsync")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<clsMemberGetAllForCourseDTO>>> GetAllMembersForCourseAsync(int CourseID)

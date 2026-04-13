@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Library_Business;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Library_System_API.Controllers
 {
+    [Authorize]
     [Route("api/Library/Users")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -62,6 +64,7 @@ namespace Library_System_API.Controllers
         /// <param name="UserID">User ID</param>
         [HttpPut("{UserID}/{Password}", Name = "UpdatePassword")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -87,6 +90,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <returns>A list of users with their important info.</returns>
         [HttpGet("All", Name = "GetAllUsersAsync")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<clsUserDTOImportantFields>>> GetAllUsersAsync()
@@ -105,12 +109,13 @@ namespace Library_System_API.Controllers
         /// <param name="addedUser">User's info to be added.</param>
         /// <returns>An object full of all the added user's info.</returns>
         [HttpPost(Name = "AddNewUser")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<clsUserDTO> AddNewUser(clsUserDTO addedUser)
         {
-            if (clsUser.IsValidInput(addedUser))
+            if (!clsUser.IsValidInput(addedUser))
                 return BadRequest("Input is invalid");
 
             clsUser user = new clsUser(new clsUserDTO(addedUser.UserID, addedUser.Username,
@@ -121,7 +126,7 @@ namespace Library_System_API.Controllers
              new { message = "An error occurred while adding the new user." });
 
             addedUser.UserID = user.UserID;
-            addedUser.Password = clsUtil.ComputeHash(user.Password);
+            addedUser.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             return CreatedAtRoute("GetUserByID", new { userID = user.UserID }, user.userDTO);
         }
 
@@ -131,6 +136,7 @@ namespace Library_System_API.Controllers
         /// <param name="username">Username to check if used before.</param>
         /// <returns>Whether the specified username is used before.</returns>
         [HttpGet("DoesUsernameExist/{username}", Name = "DoesUsernameExist")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> DoesUsernameExist(string username)
@@ -149,6 +155,7 @@ namespace Library_System_API.Controllers
         /// <returns>Whether the specified password is used before by the specified user.</returns>
         [HttpGet("IsPasswordUsedByUser/{UserID}/{Password}", Name = "IsPasswordUsedByUser")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> IsPasswordUsedByUser(int UserID, string Password)
         {

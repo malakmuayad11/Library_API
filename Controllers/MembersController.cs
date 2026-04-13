@@ -1,4 +1,5 @@
 ﻿using Library_Business;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Writers;
@@ -6,6 +7,7 @@ using Models;
 
 namespace Library_System_API.Controllers
 {
+    [Authorize]
     [Route("api/Library/Members")]
     [ApiController]
     public class MembersController : ControllerBase
@@ -18,6 +20,7 @@ namespace Library_System_API.Controllers
         /// and no server error occurs.</returns>
         [HttpPost(Name = "AddNewMember")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult AddNewMember(clsMemberDTO addedMember)
@@ -48,6 +51,7 @@ namespace Library_System_API.Controllers
         /// is valid, and no server error occurs.</returns>
         [HttpPut("{MemberID}", Name = "UpdateMember")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -87,6 +91,7 @@ namespace Library_System_API.Controllers
         /// <returns>An object full of all member's info.</returns>
         [HttpGet("{MemberID}", Name = "GetMemberByMemberID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<clsMemberDTO> GetMemberByMemberID(int MemberID)
@@ -110,6 +115,7 @@ namespace Library_System_API.Controllers
         /// <returns>Whether the membership's status is updated sucessfully.</returns>
         [HttpPatch("{MemberID}/{IsCancelled}", Name = "UpdateCancel")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> UpdateCancel(int MemberID, bool IsCancelled) =>
             (MemberID < 0) ? (BadRequest("Input is invalid")) : (Ok(clsMember.UpdateCancel(MemberID, IsCancelled)));
@@ -120,6 +126,7 @@ namespace Library_System_API.Controllers
         /// <returns>A list of members with their appropriate info.</returns>
         [HttpGet("All", Name = "GetAllMembersAsync")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<clsMemberGetAllDTO>>> GetAllMembersAsync()
         {
@@ -139,6 +146,7 @@ namespace Library_System_API.Controllers
         /// <returns>Whether the membership is renewed successfully or not.</returns>
         [HttpPatch("RenewMembership/{MemberID}", Name = "RenewMembership")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> RenewMembership(int MemberID) =>
             (MemberID < 0) ? (BadRequest("Input is invalid")) : (Ok(clsMember.RenewMembership(MemberID)));
@@ -151,6 +159,7 @@ namespace Library_System_API.Controllers
         /// <returns>The number of borrowed book by the member.</returns>
         [HttpGet("GetNumberOfBorrowedBook/{MemberID}", Name = "GetNumberOfBorrowedBook")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<int> GetNumberOfBorrowedBook(int MemberID)
