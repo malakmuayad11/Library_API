@@ -6,7 +6,7 @@ using Models;
 
 namespace Library_System_API.Controllers
 {
-    [Authorize(Policy ="Courses")]
+    [Authorize(Policy ="ManageCourses")]
     [Route("api/Library/Courses")]
     [ApiController]
     public class CoursesController : ControllerBase
