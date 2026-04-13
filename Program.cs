@@ -1,8 +1,10 @@
 using Azure.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Library_System_API.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -93,6 +95,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+// 🔹 Adding Policies
+builder.Services.AddSingleton<IAuthorizationHandler, UserOwnerOrAdminHandler>();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("UserOwnerOrAdmin", policy =>
+        policy.Requirements.Add(new UserOwnerOrAdminRequirement()));
+});
+
 var app = builder.Build();
 
 // 🔹 Middleware
@@ -107,6 +118,7 @@ app.UseHttpsRedirection();
 app.UseCors("LibrarySystemApiCorsPolicy");
 
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

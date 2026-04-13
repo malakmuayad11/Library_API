@@ -12,6 +12,13 @@ namespace Library_System_API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly IAuthorizationService authorizationService;
+
+        public UsersController(IAuthorizationService authorizationService)
+        {
+            this.authorizationService = authorizationService;
+        }
+
         /// <summary>
         /// Gets all user's info, provided by their id.
         /// </summary>
@@ -64,17 +71,26 @@ namespace Library_System_API.Controllers
         /// <param name="UserID">User ID</param>
         [HttpPut("{UserID}/{Password}", Name = "UpdatePassword")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult UpdatePassword(int UserID, string Password)
+        public async Task<ActionResult> UpdatePassword(int UserID, string Password)
         {
             if (UserID < 0 || string.IsNullOrEmpty(Password))
                 return BadRequest("Input is invalid");
 
             if (clsUser.Find(UserID) == null)
                 return NotFound($"User with id {UserID} is not found");
+
+            var authResult = await authorizationService.AuthorizeAsync(
+                User,
+                UserID,
+                "UserOwnerORAdmin");
+
+            if (!authResult.Succeeded)
+                return Forbid(); // 403
 
             bool result = clsUser.UpdatePassword(UserID, Password);
 
