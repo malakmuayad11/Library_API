@@ -7,7 +7,7 @@ using Models;
 
 namespace Library_System_API.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "ManageMembers")]
     [Route("api/Library/Members")]
     [ApiController]
     public class MembersController : ControllerBase
@@ -21,6 +21,7 @@ namespace Library_System_API.Controllers
         [HttpPost(Name = "AddNewMember")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult AddNewMember(clsMemberDTO addedMember)
@@ -52,6 +53,7 @@ namespace Library_System_API.Controllers
         [HttpPut("{MemberID}", Name = "UpdateMember")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -92,6 +94,7 @@ namespace Library_System_API.Controllers
         [HttpGet("{MemberID}", Name = "GetMemberByMemberID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<clsMemberDTO> GetMemberByMemberID(int MemberID)
@@ -116,6 +119,7 @@ namespace Library_System_API.Controllers
         [HttpPatch("{MemberID}/{IsCancelled}", Name = "UpdateCancel")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> UpdateCancel(int MemberID, bool IsCancelled) =>
             (MemberID < 0) ? (BadRequest("Input is invalid")) : (Ok(clsMember.UpdateCancel(MemberID, IsCancelled)));
@@ -127,6 +131,7 @@ namespace Library_System_API.Controllers
         [HttpGet("All", Name = "GetAllMembersAsync")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<clsMemberGetAllDTO>>> GetAllMembersAsync()
         {
@@ -147,6 +152,7 @@ namespace Library_System_API.Controllers
         [HttpPatch("RenewMembership/{MemberID}", Name = "RenewMembership")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> RenewMembership(int MemberID) =>
             (MemberID < 0) ? (BadRequest("Input is invalid")) : (Ok(clsMember.RenewMembership(MemberID)));
@@ -161,6 +167,7 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<int> GetNumberOfBorrowedBook(int MemberID)
         {

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Library_System_API.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "ManageUsers")]
     [Route("api/Library/Users")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -27,6 +27,7 @@ namespace Library_System_API.Controllers
         /// <returns>An object full of all user's info.</returns>
         [HttpGet("{userID}", Name = "GetUserByID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<clsUserDTO> GetUserByID(int userID)
@@ -50,6 +51,7 @@ namespace Library_System_API.Controllers
         /// <returns>An object full of all user's info.</returns>
         [HttpGet("{Username}/{Password}", Name = "GetUserByUsernameAndPassword")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<clsUserDTO> GetUserByUsernameAndPassword(string Username, string Password)
@@ -87,7 +89,7 @@ namespace Library_System_API.Controllers
             var authResult = await authorizationService.AuthorizeAsync(
                 User,
                 UserID,
-                "UserOwnerORAdmin");
+                "UserOwnerOrAdmin");
 
             if (!authResult.Succeeded)
                 return Forbid(); // 403
@@ -107,10 +109,14 @@ namespace Library_System_API.Controllers
         /// <returns>A list of users with their important info.</returns>
         [HttpGet("All", Name = "GetAllUsersAsync")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<clsUserDTOImportantFields>>> GetAllUsersAsync()
         {
+            Console.WriteLine(User.Identity?.IsAuthenticated);
+            Console.WriteLine(User.Identity?.Name);
+
             List<clsUserDTOImportantFields> users = await clsUser.GetAllUsersAsync();
 
             if (users == null || users.Count == 0)
@@ -127,6 +133,7 @@ namespace Library_System_API.Controllers
         [HttpPost(Name = "AddNewUser")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<clsUserDTO> AddNewUser(clsUserDTO addedUser)
@@ -153,6 +160,7 @@ namespace Library_System_API.Controllers
         /// <returns>Whether the specified username is used before.</returns>
         [HttpGet("DoesUsernameExist/{username}", Name = "DoesUsernameExist")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> DoesUsernameExist(string username)
@@ -172,6 +180,7 @@ namespace Library_System_API.Controllers
         [HttpGet("IsPasswordUsedByUser/{UserID}/{Password}", Name = "IsPasswordUsedByUser")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> IsPasswordUsedByUser(int UserID, string Password)
         {

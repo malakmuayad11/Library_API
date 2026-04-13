@@ -6,7 +6,7 @@ using Models;
 
 namespace Library_System_API.Controllers
 {
-    [Authorize]
+    [Authorize(Policy ="ManageBooks")] // Authors endpoints exist to add books only.
     [Route("api/Library/Authors")]
     [ApiController]
     public class AuthorsController : ControllerBase
@@ -19,6 +19,7 @@ namespace Library_System_API.Controllers
         [HttpGet("{BookID}", Name = "GetByBookID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<clsAuthorDTO> GetByBookID(int BookID)
@@ -43,6 +44,7 @@ namespace Library_System_API.Controllers
         [HttpGet("{FirstName}/{LastName}", Name = "Find")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<clsAuthorDTO> Find(string FirstName, string LastName)
@@ -67,6 +69,7 @@ namespace Library_System_API.Controllers
         [HttpGet("IsAuthorExists/{FirstName}/{LastName}", Name = "IsAuthorExists")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> IsAuthorExists(string FirstName, string LastName) =>
             (string.IsNullOrWhiteSpace(FirstName) || string.IsNullOrWhiteSpace(LastName)) ?

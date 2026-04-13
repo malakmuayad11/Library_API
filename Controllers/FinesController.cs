@@ -6,7 +6,7 @@ using Models;
 
 namespace Library_System_API.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "ManagePayments")]
     [Route("api/Library/Fines")]
     [ApiController]
     public class FinesController : ControllerBase
@@ -20,6 +20,7 @@ namespace Library_System_API.Controllers
         [HttpPost(Name = "AddNewFine")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<clsFineDTO> AddNewFine(clsFineDTO addedFine)
@@ -46,6 +47,7 @@ namespace Library_System_API.Controllers
         [HttpGet("All", Name = "GetAllFinesAsync")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<clsFineDTO>>> GetAllFinesAsync()
         {
@@ -65,6 +67,7 @@ namespace Library_System_API.Controllers
         /// <returns>Whether the payment status is paid successfully or not.</returns>
         [HttpPatch("PaymentStatus/{FineID}/{IsPaid}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> UpdatePaymentStatus(int FineID, bool IsPaid) =>
@@ -78,6 +81,7 @@ namespace Library_System_API.Controllers
         [HttpPatch("Pay/{FineID}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> PayFines(int FineID) =>
             (FineID < 0) ? BadRequest("Input is invalid") : Ok(clsFine.PayFines(FineID));
@@ -91,6 +95,7 @@ namespace Library_System_API.Controllers
         /// the method will return -1.</returns>
         [HttpGet("UnpaidFees/{MemberID}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<decimal> GetMemberUnpaidFees(int MemberID) =>

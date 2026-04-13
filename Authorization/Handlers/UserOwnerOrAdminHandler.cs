@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Library_System_API.Authorization.Requirements;
+using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
-namespace Library_System_API.Authorization
+namespace Library_System_API.Authorization.Handlers
 {
     public class UserOwnerOrAdminHandler : AuthorizationHandler<UserOwnerOrAdminRequirement, int>
     {

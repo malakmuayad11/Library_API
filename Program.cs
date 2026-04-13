@@ -1,10 +1,13 @@
 using Azure.Identity;
+using Library_Business;
+using Library_System_API.Authorization.Handlers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Security.Claims;
 using System.Text;
-using Library_System_API.Authorization;
+using Library_System_API.Authorization.Requirements;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -91,17 +94,35 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(secretKey)
-            )
+            ),
+            RoleClaimType = ClaimTypes.Role
         };
     });
 
 // 🔹 Adding Policies
 builder.Services.AddSingleton<IAuthorizationHandler, UserOwnerOrAdminHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, HasUserPermissionsHandler>();
+
 
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("UserOwnerOrAdmin", policy =>
         policy.Requirements.Add(new UserOwnerOrAdminRequirement()));
+
+    options.AddPolicy("ManageMembers", policy =>
+        policy.Requirements.Add(new HasUserPermissionsRequirement((int)clsUser.enPermissions.eManageMembers)));
+
+    options.AddPolicy("ManageBooks", policy =>
+        policy.Requirements.Add(new HasUserPermissionsRequirement((int)clsUser.enPermissions.eManageBooks)));
+
+    options.AddPolicy("ManageCourses", policy =>
+        policy.Requirements.Add(new HasUserPermissionsRequirement((int)clsUser.enPermissions.eManageCourses)));
+
+    options.AddPolicy("ManageUsers", policy =>
+        policy.Requirements.Add(new HasUserPermissionsRequirement((int)clsUser.enPermissions.eManageUsers)));
+
+    options.AddPolicy("ManagePayments", policy =>
+        policy.Requirements.Add(new HasUserPermissionsRequirement((int)clsUser.enPermissions.eManagePayments)));
 });
 
 var app = builder.Build();

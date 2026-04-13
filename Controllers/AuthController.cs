@@ -39,7 +39,8 @@ namespace Library_System_API.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString()),
-                new Claim(ClaimTypes.Role, user.RoleString)
+                new Claim(ClaimTypes.Role, user.RoleString),
+                new Claim("permissions", user.PermissionsInt.ToString())
             };
 
             var secretKey = _Configuration["JwtSigningKey"];
@@ -47,16 +48,19 @@ namespace Library_System_API.Controllers
             if (string.IsNullOrWhiteSpace(secretKey))
                 return StatusCode(500, "JWT key missing from Key Vault");
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+            SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(
+            JwtSecurityToken token = new JwtSecurityToken(
                 issuer: "LibrarySystemApi",
                 audience: "LibrarySystemApiUsers",
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(30),
                 signingCredentials: creds
             );
+
+            foreach( var claim in claims )
+                Console.WriteLine( claim );
 
             return Ok(new
             {

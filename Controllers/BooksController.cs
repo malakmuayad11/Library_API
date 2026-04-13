@@ -6,7 +6,7 @@ using Models;
 
 namespace Library_System_API.Controllers
 {
-    [Authorize]
+    [Authorize(Policy="ManageBooks")]
     [Route("api/Library/Books")]
     [ApiController]
     public class BooksController : ControllerBase
@@ -19,6 +19,7 @@ namespace Library_System_API.Controllers
         [HttpGet("{BookID}", Name = "FindBookByID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<clsBookDTO> FindBookByID(int BookID)
@@ -42,6 +43,7 @@ namespace Library_System_API.Controllers
         [HttpGet("Book/{Title}", Name = "FindBookByTitle")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<clsBookDTO> FindBookByTitle(string Title)
@@ -68,6 +70,7 @@ namespace Library_System_API.Controllers
         [HttpPost(Name = "AddNewBook")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult AddNewBook(clsBookDTO addedBook, string AuthorFirstName, string AuthorLastName)
@@ -98,6 +101,7 @@ namespace Library_System_API.Controllers
         [HttpPatch("UpdateCondition/{BookID}/{Condition}", Name = "SetCondition")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<bool> SetCondition(int BookID, byte Condition)
@@ -125,6 +129,7 @@ namespace Library_System_API.Controllers
         [HttpPatch("{BookID}/{AvailablilityStatus}", Name = "SetAvailabilityStatus")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<bool> SetAvailabilityStatus(int BookID, byte AvailablilityStatus)
@@ -150,6 +155,7 @@ namespace Library_System_API.Controllers
         [HttpGet("All", Name = "GetAllBooksAsync")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<clsBookDTO>>> GetAllBooksAsync()
         {
@@ -168,6 +174,7 @@ namespace Library_System_API.Controllers
         /// <returns>Whether the ISBN exists in the system or not.</returns>
         [HttpGet("DoesISBNExist/{ISBN}", Name = "DoesISBNExist")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> DoesISBNExist(string ISBN) =>
@@ -180,6 +187,7 @@ namespace Library_System_API.Controllers
         /// <returns>Whether the book is deleted successfully or not.</returns>
         [HttpDelete("{BookID}", Name = "DeleteBook")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -202,6 +210,7 @@ namespace Library_System_API.Controllers
         [HttpGet("AuthorID/{BookID}", Name = "GetAuthorID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<int> GetAuthorID(int BookID)
