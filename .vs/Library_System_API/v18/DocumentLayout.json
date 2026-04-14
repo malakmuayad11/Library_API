@@ -11,6 +11,10 @@
       "RelativeMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|solutionrelative:controllers\\coursescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|c:\\programming\\library_system_api\\controllers\\finescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|solutionrelative:controllers\\finescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|c:\\programming\\library_system_api\\controllers\\authorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|solutionrelative:controllers\\authorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -21,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|c:\\programming\\library_system_api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|c:\\programming\\library_system_api\\controllers\\finescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|solutionrelative:controllers\\finescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|c:\\programming\\library_system_api\\controllers\\loanscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -177,32 +177,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Programming\\Library_System_API\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Programming\\Library_System_API\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAGwAAAAAAAAAAAAAAHsAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-12T13:28:10.26Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "FinesController.cs",
-              "DocumentMoniker": "C:\\Programming\\Library_System_API\\Controllers\\FinesController.cs",
-              "RelativeDocumentMoniker": "Controllers\\FinesController.cs",
-              "ToolTip": "C:\\Programming\\Library_System_API\\Controllers\\FinesController.cs",
-              "RelativeToolTip": "Controllers\\FinesController.cs",
-              "ViewState": "AgIAAFkAAAAAAAAAAAAkwGEAAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T11:45:14.227Z"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -218,7 +194,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "BooksController.cs",
               "DocumentMoniker": "C:\\Programming\\Library_System_API\\Controllers\\BooksController.cs",
               "RelativeDocumentMoniker": "Controllers\\BooksController.cs",
@@ -226,12 +202,37 @@
               "RelativeToolTip": "Controllers\\BooksController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAANQAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T10:03:00.535Z",
+              "WhenOpened": "2025-11-05T10:03:00.535Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Programming\\Library_System_API\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Programming\\Library_System_API\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "Controllers\\UsersController.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAYwFMAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T16:22:41.254Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "FinesController.cs",
+              "DocumentMoniker": "C:\\Programming\\Library_System_API\\Controllers\\FinesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\FinesController.cs",
+              "ToolTip": "C:\\Programming\\Library_System_API\\Controllers\\FinesController.cs",
+              "RelativeToolTip": "Controllers\\FinesController.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAuwAsAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-03T11:45:14.227Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "AuthorsController.cs",
               "DocumentMoniker": "C:\\Programming\\Library_System_API\\Controllers\\AuthorsController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuthorsController.cs",
@@ -244,7 +245,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\Programming\\Library_System_API\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
@@ -252,21 +253,19 @@
               "RelativeToolTip": "Controllers\\AuthController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADAAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-12T15:47:40.852Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-12T15:47:40.852Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Programming\\Library_System_API\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Programming\\Library_System_API\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "Controllers\\UsersController.cs",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAQwF4AAAAeAAAAAAAAAA==",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Programming\\Library_System_API\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Programming\\Library_System_API\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAAAHsAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T16:22:41.254Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-12T13:28:10.26Z"
             },
             {
               "$type": "Document",

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Library_System_API.Controllers
 {
-    [Authorize(Policy = "ManageUsers")]
+    //[Authorize(Policy = "ManageUsers")]
     [Route("api/Library/Users")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -25,12 +25,13 @@ namespace Library_System_API.Controllers
         /// <param name="userID">User ID.</param>
         /// <param name="Password">New password to set.</param>
         /// <returns>An object full of all user's info.</returns>
+        [Authorize]
         [HttpGet("{userID}", Name = "GetUserByID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<clsUserDTO> GetUserByID(int userID)
+        public async Task<ActionResult<clsUserDTO>> GetUserByID(int userID)
         {
             if (userID < 0)
                 return BadRequest("Id is not valid");
@@ -39,6 +40,14 @@ namespace Library_System_API.Controllers
 
             if (user == null)
                 return NotFound($"User with id {userID} is not found.");
+
+            var authResult = await authorizationService.AuthorizeAsync(
+                User,
+                userID,
+                "UserOwnerOrAdmin");
+
+            if (!authResult.Succeeded)
+                return Forbid(); // 403
 
             return Ok(user.userDTO);
         }
@@ -49,6 +58,7 @@ namespace Library_System_API.Controllers
         /// <param name="Username">User's username</param>
         /// <param name="Password">User's passwrd</param>
         /// <returns>An object full of all user's info.</returns>
+        [Authorize(Policy = "ManageUsers")]
         [HttpGet("{Username}/{Password}", Name = "GetUserByUsernameAndPassword")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -71,6 +81,7 @@ namespace Library_System_API.Controllers
         /// Updates a user's password, provided by their userID.
         /// </summary>
         /// <param name="UserID">User ID</param>
+        [Authorize]
         [HttpPut("{UserID}/{Password}", Name = "UpdatePassword")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -107,6 +118,7 @@ namespace Library_System_API.Controllers
         /// Gets all users with their important info (UserID, Username, Role, IsActive).
         /// </summary>
         /// <returns>A list of users with their important info.</returns>
+        [Authorize(Policy = "ManageUsers")]
         [HttpGet("All", Name = "GetAllUsersAsync")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -130,6 +142,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="addedUser">User's info to be added.</param>
         /// <returns>An object full of all the added user's info.</returns>
+        [Authorize(Policy = "ManageUsers")]
         [HttpPost(Name = "AddNewUser")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -158,6 +171,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="username">Username to check if used before.</param>
         /// <returns>Whether the specified username is used before.</returns>
+        [Authorize(Policy = "ManageUsers")]
         [HttpGet("DoesUsernameExist/{username}", Name = "DoesUsernameExist")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -177,6 +191,7 @@ namespace Library_System_API.Controllers
         /// <param name="UserID">The userID of the user to check for.</param>
         /// <param name="Password">The password to check if used before by the specified user.</param>
         /// <returns>Whether the specified password is used before by the specified user.</returns>
+        [Authorize(Policy = "ManageUsers")]
         [HttpGet("IsPasswordUsedByUser/{UserID}/{Password}", Name = "IsPasswordUsedByUser")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
