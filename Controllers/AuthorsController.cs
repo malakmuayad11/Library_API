@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Models.DTOs;
 
 namespace Library_System_API.Controllers
@@ -16,6 +17,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="BookID">The ID of the book the author has written.</param>
         /// <returns>An object full of all author's info.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("{BookID}", Name = "GetByBookID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -41,6 +43,7 @@ namespace Library_System_API.Controllers
         /// <param name="FirstName">The first name of the book to find.</param>
         /// <param name="LastName">The last name of the book to find.</param>
         /// <returns>An object full of all author's info.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("{FirstName}/{LastName}", Name = "Find")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -66,6 +69,7 @@ namespace Library_System_API.Controllers
         /// <param name="FirstName">The first name of the author to check for.</param>
         /// <param name="LastName">The last name of the author to check for.</param>
         /// <returns>Whether the author exists in the system or not.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("IsAuthorExists/{FirstName}/{LastName}", Name = "IsAuthorExists")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

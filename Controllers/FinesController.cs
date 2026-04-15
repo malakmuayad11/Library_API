@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Models.DTOs;
 
 namespace Library_System_API.Controllers
@@ -17,6 +18,7 @@ namespace Library_System_API.Controllers
         /// <param name="addedFine">Fine's info to be added.</param>
         /// <returns>An object full of all the added fine's info if input is valid
         /// and no server error occurs.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpPost(Name = "AddNewFine")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -44,6 +46,7 @@ namespace Library_System_API.Controllers
         /// Gets all fines with all their info.
         /// </summary
         /// <returns>A list of fines with their info.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("All", Name = "GetAllFinesAsync")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -65,6 +68,7 @@ namespace Library_System_API.Controllers
         /// <param name="FineID">The ID of the fine to update its payment status.</param>
         /// <param name="IsPaid">Whether to update the status to paid or not paid.</param>
         /// <returns>Whether the payment status is paid successfully or not.</returns>
+        [EnableRateLimiting("CriticalOpsLimiter")]
         [HttpPatch("PaymentStatus/{FineID}/{IsPaid}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -78,6 +82,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="FineID">The fine to pay its fine amount.</param>
         /// <returns>Whether the fine amount is updated successfully or not.</returns>
+        [EnableRateLimiting("CriticalOpsLimiter")]
         [HttpPatch("Pay/{FineID}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -86,13 +91,13 @@ namespace Library_System_API.Controllers
         public ActionResult<bool> PayFines(int FineID) =>
             (FineID < 0) ? BadRequest("Input is invalid") : Ok(clsFine.PayFines(FineID));
 
-
         /// <summary>
         /// Gets the amount of the unpaid fine amount for a specific member.
         /// </summary>
         /// <param name="MemberID">The ID of the member to get their unpaid fees.</param>
         /// <returns>The number of the unpaid fees for the member. If there is no unpaid fees, 
         /// the method will return -1.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("UnpaidFees/{MemberID}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Models.DTOs;
 
 namespace Library_System_API.Controllers
@@ -16,6 +17,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="BookID">The ID of the book to find.</param>
         /// <returns>An object full of all book's info.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("{BookID}", Name = "FindBookByID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -40,6 +42,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="Title">The title of the book to find.</param>
         /// <returns>An object full of all book's info.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("Book/{Title}", Name = "FindBookByTitle")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -67,6 +70,7 @@ namespace Library_System_API.Controllers
         /// <param name="addedBook">The last name of the book's author.</param>
         /// <returns>An object full of all the added book's info if input is valid
         /// and no server error occurs.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpPost(Name = "AddNewBook")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -98,6 +102,7 @@ namespace Library_System_API.Controllers
         /// <param name="BookID">The ID of the book to update its condition.</param>
         /// <param name="Condition">The new condition of the book.</param>
         /// <returns>Whether the book's condition is updated successfully or not.</returns>
+        [EnableRateLimiting("CriticalOpsLimiter")]
         [HttpPatch("UpdateCondition/{BookID}/{Condition}", Name = "SetCondition")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -126,6 +131,7 @@ namespace Library_System_API.Controllers
         /// <param name="BookID">The ID of the book to update its condition.</param>
         /// <param name="AvailablilityStatus">The new availability status of the book.</param>
         /// <returns>Whether the book's availability status is updated successfully or not.</returns>
+        [EnableRateLimiting("CriticalOpsLimiter")]
         [HttpPatch("{BookID}/{AvailablilityStatus}", Name = "SetAvailabilityStatus")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -152,6 +158,7 @@ namespace Library_System_API.Controllers
         /// Gets all books with all their info.
         /// </summary
         /// <returns>A list of books with their info.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("All", Name = "GetAllBooksAsync")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -172,6 +179,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="ISBN">The ISBN to check if exists.</param>
         /// <returns>Whether the ISBN exists in the system or not.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("DoesISBNExist/{ISBN}", Name = "DoesISBNExist")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -185,6 +193,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="BookID">The ID of the book to be deleted.</param>
         /// <returns>Whether the book is deleted successfully or not.</returns>
+        [EnableRateLimiting("CriticalOpsLimiter")]
         [HttpDelete("{BookID}", Name = "DeleteBook")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -207,6 +216,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="BookID">The ID of the book to get its author ID.</param>
         /// <returns>The ID of the Author of the specified book.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("AuthorID/{BookID}", Name = "GetAuthorID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

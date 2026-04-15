@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.OpenApi.Writers;
 using Models.DTOs;
 
@@ -18,6 +19,7 @@ namespace Library_System_API.Controllers
         /// <param name="addedMember">Member's info to be added.</param>
         /// <returns>An object full of all the added member's info if input is valid
         /// and no server error occurs.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpPost(Name = "AddNewMember")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -50,6 +52,7 @@ namespace Library_System_API.Controllers
         /// <param name="updatedMemberDTO">New info of that member.</param>
         /// <returns>An object full of the updated member's info, if the input
         /// is valid, and no server error occurs.</returns>
+        [EnableRateLimiting("CriticalOpsLimiter")]
         [HttpPut("{MemberID}", Name = "UpdateMember")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -91,6 +94,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="MemberID">The ID of the member to find.</param>
         /// <returns>An object full of all member's info.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("{MemberID}", Name = "GetMemberByMemberID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -117,6 +121,7 @@ namespace Library_System_API.Controllers
         /// <param name="IsCancelled">The new status of that member.</param>
         /// <returns>Whether the membership's status is updated sucessfully.</returns>
         [HttpPatch("{MemberID}/{IsCancelled}", Name = "UpdateCancel")]
+        [EnableRateLimiting("CriticalOpsLimiter")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -128,6 +133,7 @@ namespace Library_System_API.Controllers
         /// Gets all members with their approptiate info to display in the presentation layer.
         /// </summary>
         /// <returns>A list of members with their appropriate info.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("All", Name = "GetAllMembersAsync")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -143,12 +149,12 @@ namespace Library_System_API.Controllers
             return Ok(members);
         }
 
-
         /// <summary>
         /// Renews the membership of the specified member.
         /// </summary>
         /// <param name="MemberID">The id of the membership to renew.</param>
         /// <returns>Whether the membership is renewed successfully or not.</returns>
+        [EnableRateLimiting("CriticalOpsLimiter")]
         [HttpPatch("RenewMembership/{MemberID}", Name = "RenewMembership")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -157,12 +163,12 @@ namespace Library_System_API.Controllers
         public ActionResult<bool> RenewMembership(int MemberID) =>
             (MemberID < 0) ? (BadRequest("Input is invalid")) : (Ok(clsMember.RenewMembership(MemberID)));
 
-
         /// <summary>
         /// Returns the number of borrowed books by a specific member.
         /// </summary>
         /// <param name="MemberID">The id of the member to get their borrowed books.</param>
         /// <returns>The number of borrowed book by the member.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("GetNumberOfBorrowedBook/{MemberID}", Name = "GetNumberOfBorrowedBook")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

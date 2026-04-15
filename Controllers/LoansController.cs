@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Models.DTOs;
 
 namespace Library_System_API.Controllers
@@ -15,6 +16,7 @@ namespace Library_System_API.Controllers
         /// Gets all loans with their approptiate info to display in the presentation layer.
         /// </summary
         /// <returns>A list of loans with their appropriate info.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet(Name = "GetAllLoans")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -38,6 +40,7 @@ namespace Library_System_API.Controllers
         /// <param name="CreatedByUserID">The ID of the user who created the loan.</param>
         /// <returns>An object full of all the added loan's info if input is valid
         /// and no server error occurs.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpPost(Name = "AddNewLoan")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -64,6 +67,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="LoanID">The ID of the loan to find.</param>
         /// <returns>An object full of all loan's info.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("{LoanID}", Name = "GetLoanByID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -88,6 +92,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="MemberID">The ID of the member who has the loan.</param>
         /// <returns>An object full of all loan's info.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("Loan/{MemberID}", Name = "GetLoanByMemberID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -112,6 +117,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="LoanID">The id of the loan to return in the system.</param>
         /// <returns>Whether the loan is returned successfully or not.</returns>
+        [EnableRateLimiting("CriticalOpsLimiter")]
         [HttpPatch("Return/{LoanID}", Name = "Return")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -136,6 +142,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="LoanID">The ID of the loan that can be returned.</param>
         /// <returns>Whether a loan can be returned.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("CanReturnBook/{LoanID}", Name = "CanReturnBook")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -149,6 +156,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="LoanID">The ID of the loan that can be extended.</param>
         /// <returns>Whether the loan can be extended.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("CanExtendLoan/{LoanID}", Name = "CanExtendLoan")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -157,13 +165,13 @@ namespace Library_System_API.Controllers
         public ActionResult<bool> CanExtendLoan(int LoanID) =>
             (LoanID < 0) ? BadRequest("Input is invalid") : Ok(clsLoan.CanExtendLoan(LoanID));
 
-
         /// <summary>
         /// Extends a loan, by extending its due date.
         /// </summary>
         /// <param name="LoanID">The ID of the loan to be extended.</param>
         /// <param name="DueDate">The new due date of the extended loan.</param>
         /// <returns>Whether the loan is extended successfully or not.</returns>
+        [EnableRateLimiting("CriticalOpsLimiter")]
         [HttpPatch("ExtendDueDate/{LoanID}/{DueDate}", Name = "ExtendDueDate")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Models.DTOs;
 
 namespace Library_System_API.Controllers
@@ -15,6 +16,7 @@ namespace Library_System_API.Controllers
         /// Gets all membership types with their info.
         /// </summary>
         /// <returns>A list of membership tyes.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("All", Name = "GetAllMembershipTypesAsync")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -34,6 +36,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="MembershipTypeID">Membership Type ID.</param>
         /// <returns>An object full of all membership type's info.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("{MembershipTypeID}", Name = "GetMembershipTypeByID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

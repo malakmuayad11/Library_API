@@ -6,9 +6,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Library_System_API.Controllers
 {
+    [EnableRateLimiting("AuthLimiter")]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -18,6 +20,10 @@ namespace Library_System_API.Controllers
         public AuthController(IConfiguration configuration) => _Configuration = configuration;
 
         [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public IActionResult Login([FromBody] LoginRequest request)
         {
             clsUser user = clsUser.Find(request.Username);
@@ -49,6 +55,10 @@ namespace Library_System_API.Controllers
         }
 
         [HttpPost("refresh")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public IActionResult Refresh([FromBody] RefreshRequest request)
         {
             clsUser user = clsUser.Find(request.Username);
@@ -87,6 +97,9 @@ namespace Library_System_API.Controllers
         }
 
         [HttpPost("logout")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public IActionResult Logout([FromBody] LogoutRequest request)
         {
             clsUser user = clsUser.Find(request.Username);

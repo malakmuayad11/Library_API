@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Models.DTOs;
 
 namespace Library_System_API.Controllers
@@ -16,6 +17,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="MemberID">The ID of the course to find.</param>
         /// <returns>An object full of all course's info.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("{CourseID}", Name = "GetCourseByID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -41,6 +43,7 @@ namespace Library_System_API.Controllers
         /// <param name="addedCourse">Course's info to be added.</param>
         /// <returns>An object full of all the added course's info if input is valid
         /// and no server error occurs.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpPost(Name = "AddNewCourse")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -74,6 +77,7 @@ namespace Library_System_API.Controllers
         /// <param name="courseDTO">New info of that course.</param>
         /// <returns>An object full of the updated course's info, if the input
         /// is valid, and no server error occurs.</returns>
+        [EnableRateLimiting("CriticalOpsLimiter")]
         [HttpPut("{CourseID}", Name = "UpdateCourse")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -110,6 +114,7 @@ namespace Library_System_API.Controllers
         /// Gets all courses with their approptiate info to display in the presentation layer.
         /// </summary>
         /// <returns>A list of members with their appropriate info.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("All", Name = "GetAllCoursesAsync")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -131,6 +136,7 @@ namespace Library_System_API.Controllers
         /// <param name="MemberID">The ID of the member to enroll.</param>
         /// <param name="CourseID">The ID of the course to enroll the member in.</param>
         /// <returns>Whether the member is enrolled in the course successfully or not.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("EnrollMember/{MemberID}/{CourseID}", Name = "EnrollMemberInCourse")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -147,6 +153,7 @@ namespace Library_System_API.Controllers
         /// <param name="CourseID">The ID of the course to get its enrolled members.</param>
         /// <returns>A list of members with their appropriate info to be displayed in 
         /// the presentation layer.</returns>
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("MembersForCourse/{CourseID}", Name = "GetAllMembersForCourseAsync")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]

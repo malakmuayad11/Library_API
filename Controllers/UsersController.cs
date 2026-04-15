@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Library_Business;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Library_Business;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 using Models.DTOs;
 
 namespace Library_System_API.Controllers
 {
-    //[Authorize(Policy = "ManageUsers")]
     [Route("api/Library/Users")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -26,6 +26,7 @@ namespace Library_System_API.Controllers
         /// <param name="Password">New password to set.</param>
         /// <returns>An object full of all user's info.</returns>
         [Authorize]
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("{userID}", Name = "GetUserByID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -59,11 +60,13 @@ namespace Library_System_API.Controllers
         /// <param name="Password">User's passwrd</param>
         /// <returns>An object full of all user's info.</returns>
         [Authorize(Policy = "ManageUsers")]
+        [EnableRateLimiting("AuthLimiter")]
         [HttpGet("{Username}/{Password}", Name = "GetUserByUsernameAndPassword")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public ActionResult<clsUserDTO> GetUserByUsernameAndPassword(string Username, string Password)
         {
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
@@ -82,6 +85,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <param name="UserID">User ID</param>
         [Authorize]
+        [EnableRateLimiting("AuthLimiter")]
         [HttpPut("{UserID}/{Password}", Name = "UpdatePassword")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -89,6 +93,7 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public async Task<ActionResult> UpdatePassword(int UserID, string Password)
         {
             if (UserID < 0 || string.IsNullOrEmpty(Password))
@@ -119,6 +124,7 @@ namespace Library_System_API.Controllers
         /// </summary>
         /// <returns>A list of users with their important info.</returns>
         [Authorize(Policy = "ManageUsers")]
+        [EnableRateLimiting("LightOpsLimiter")]
         [HttpGet("All", Name = "GetAllUsersAsync")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -143,6 +149,7 @@ namespace Library_System_API.Controllers
         /// <param name="addedUser">User's info to be added.</param>
         /// <returns>An object full of all the added user's info.</returns>
         [Authorize(Policy = "ManageUsers")]
+        [EnableRateLimiting("CriticalOpsLimiter")]
         [HttpPost(Name = "AddNewUser")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -172,11 +179,13 @@ namespace Library_System_API.Controllers
         /// <param name="username">Username to check if used before.</param>
         /// <returns>Whether the specified username is used before.</returns>
         [Authorize(Policy = "ManageUsers")]
+        [EnableRateLimiting("AuthLimiter")]
         [HttpGet("DoesUsernameExist/{username}", Name = "DoesUsernameExist")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public ActionResult<bool> DoesUsernameExist(string username)
         {
             if (string.IsNullOrEmpty(username))
@@ -192,11 +201,13 @@ namespace Library_System_API.Controllers
         /// <param name="Password">The password to check if used before by the specified user.</param>
         /// <returns>Whether the specified password is used before by the specified user.</returns>
         [Authorize(Policy = "ManageUsers")]
+        [EnableRateLimiting("AuthLimiter")]
         [HttpGet("IsPasswordUsedByUser/{UserID}/{Password}", Name = "IsPasswordUsedByUser")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public ActionResult<bool> IsPasswordUsedByUser(int UserID, string Password)
         {
             if (string.IsNullOrEmpty(Password) || UserID < 0)
