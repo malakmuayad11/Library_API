@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using Library_Business;
 using Microsoft.AspNetCore.Authorization;
+using Models.DTOs;
 
 namespace Library_System_API.Controllers
 {

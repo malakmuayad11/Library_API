@@ -9,7 +9,39 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Models.LoginRequest",
+        "Type": "Models.Auth.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Library_System_API.Controllers.AuthController",
+    "Method": "Logout",
+    "RelativePath": "api/Auth/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Models.Auth.LogoutRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Library_System_API.Controllers.AuthController",
+    "Method": "Refresh",
+    "RelativePath": "api/Auth/refresh",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Models.Auth.RefreshRequest",
         "IsRequired": true
       }
     ],
@@ -58,7 +90,7 @@
         "StatusCode": 403
       },
       {
-        "Type": "Models.clsAuthorDTO",
+        "Type": "Models.DTOs.clsAuthorDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -126,7 +158,7 @@
         "StatusCode": 403
       },
       {
-        "Type": "Models.clsAuthorDTO",
+        "Type": "Models.DTOs.clsAuthorDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -215,7 +247,7 @@
     "Parameters": [
       {
         "Name": "addedBook",
-        "Type": "Models.clsBookDTO",
+        "Type": "Models.DTOs.clsBookDTO",
         "IsRequired": true
       },
       {
@@ -313,7 +345,7 @@
         "StatusCode": 403
       },
       {
-        "Type": "Models.clsBookDTO",
+        "Type": "Models.DTOs.clsBookDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -497,7 +529,7 @@
         "StatusCode": 403
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.clsBookDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsBookDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -614,7 +646,7 @@
         "StatusCode": 403
       },
       {
-        "Type": "Models.clsBookDTO",
+        "Type": "Models.DTOs.clsBookDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -766,7 +798,7 @@
     "Parameters": [
       {
         "Name": "addedCourse",
-        "Type": "Models.clsCourseDTO",
+        "Type": "Models.DTOs.clsCourseDTO",
         "IsRequired": true
       }
     ],
@@ -854,7 +886,7 @@
         "StatusCode": 403
       },
       {
-        "Type": "Models.clsCourseDTO",
+        "Type": "Models.DTOs.clsCourseDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -889,7 +921,7 @@
       },
       {
         "Name": "courseDTO",
-        "Type": "Models.clsCourseDTO",
+        "Type": "Models.DTOs.clsCourseDTO",
         "IsRequired": true
       }
     ],
@@ -931,7 +963,7 @@
         "StatusCode": 404
       },
       {
-        "Type": "Models.clsCourseDTO",
+        "Type": "Models.DTOs.clsCourseDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -984,7 +1016,7 @@
         "StatusCode": 404
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.clsCourseGetAllDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsCourseGetAllDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1106,7 +1138,7 @@
         "StatusCode": 404
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.clsMemberGetAllForCourseDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsMemberGetAllForCourseDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1127,7 +1159,7 @@
     "Parameters": [
       {
         "Name": "addedFine",
-        "Type": "Models.clsFineDTO",
+        "Type": "Models.DTOs.clsFineDTO",
         "IsRequired": true
       }
     ],
@@ -1160,7 +1192,7 @@
         "StatusCode": 403
       },
       {
-        "Type": "Models.clsFineDTO",
+        "Type": "Models.DTOs.clsFineDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1213,7 +1245,7 @@
         "StatusCode": 403
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.clsFineDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsFineDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1425,7 +1457,7 @@
         "StatusCode": 401
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.clsLoanGetAllDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsLoanGetAllDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1544,7 +1576,7 @@
         "StatusCode": 403
       },
       {
-        "Type": "Models.clsLoanDTO",
+        "Type": "Models.DTOs.clsLoanDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1765,7 +1797,7 @@
         "StatusCode": 401
       },
       {
-        "Type": "Models.clsLoanDTO",
+        "Type": "Models.DTOs.clsLoanDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1867,7 +1899,7 @@
     "Parameters": [
       {
         "Name": "addedMember",
-        "Type": "Models.clsMemberDTO",
+        "Type": "Models.DTOs.clsMemberDTO",
         "IsRequired": true
       }
     ],
@@ -1927,7 +1959,7 @@
       },
       {
         "Name": "updatedMemberDTO",
-        "Type": "Models.clsMemberDTO",
+        "Type": "Models.DTOs.clsMemberDTO",
         "IsRequired": true
       }
     ],
@@ -1969,7 +2001,7 @@
         "StatusCode": 404
       },
       {
-        "Type": "Models.clsMemberDTO",
+        "Type": "Models.DTOs.clsMemberDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -2037,7 +2069,7 @@
         "StatusCode": 404
       },
       {
-        "Type": "Models.clsMemberDTO",
+        "Type": "Models.DTOs.clsMemberDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -2144,7 +2176,7 @@
         "StatusCode": 403
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.clsMemberGetAllDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsMemberGetAllDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -2315,7 +2347,7 @@
         "StatusCode": 404
       },
       {
-        "Type": "Models.clsMembershipTypeDTO",
+        "Type": "Models.DTOs.clsMembershipTypeDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -2354,7 +2386,7 @@
         "StatusCode": 401
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.clsMembershipTypeDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsMembershipTypeDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -2375,7 +2407,7 @@
     "Parameters": [
       {
         "Name": "addedUser",
-        "Type": "Models.clsUserDTO",
+        "Type": "Models.DTOs.clsUserDTO",
         "IsRequired": true
       }
     ],
@@ -2408,7 +2440,7 @@
         "StatusCode": 403
       },
       {
-        "Type": "Models.clsUserDTO",
+        "Type": "Models.DTOs.clsUserDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -2467,7 +2499,7 @@
         "StatusCode": 404
       },
       {
-        "Type": "Models.clsUserDTO",
+        "Type": "Models.DTOs.clsUserDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -2595,7 +2627,7 @@
         "StatusCode": 404
       },
       {
-        "Type": "Models.clsUserDTO",
+        "Type": "Models.DTOs.clsUserDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -2643,7 +2675,7 @@
         "StatusCode": 404
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.clsUserDTOImportantFields, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsUserDTOImportantFields, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
