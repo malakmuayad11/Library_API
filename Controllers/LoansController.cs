@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Models.DTOs;
+using System.Security.Claims;
 
 namespace Library_System_API.Controllers
 {
@@ -12,6 +13,15 @@ namespace Library_System_API.Controllers
     [ApiController]
     public class LoansController : ControllerBase
     {
+        private readonly IConfiguration _Configuration;
+        private readonly clsLoggerService _Logger;
+
+        public LoansController(IConfiguration configuration, clsLoggerService logger)
+        {
+            _Configuration = configuration;
+            _Logger = logger;
+        }
+
         /// <summary>
         /// Gets all loans with their approptiate info to display in the presentation layer.
         /// </summary
@@ -29,7 +39,7 @@ namespace Library_System_API.Controllers
             if (loans.Count == 0 || loans == null)
                 return NotFound("Loans are not found");
 
-            return Ok(loans);   
+            return Ok(loans);
         }
 
         /// <summary>
@@ -49,16 +59,18 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult AddNewLoan(int BookID, int MemberID, int CreatedByUserID)
         {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
             if (BookID < 0 || MemberID < 0 || CreatedByUserID < 0)
                 return BadRequest("Input is invalid");
 
-            clsLoan newLoan = new clsLoan(new clsLoanDTO(-1, BookID, MemberID, 
+            clsLoan newLoan = new clsLoan(new clsLoanDTO(-1, BookID, MemberID,
                 DateTime.Now, DateTime.Now, null, null, CreatedByUserID));
 
-            if(!newLoan.Save())
+            if (!newLoan.Save())
                 return StatusCode(StatusCodes.Status500InternalServerError,
              new { message = "An error occurred while adding the new loan." });
 
+            _Logger.Log(ip, CreatedByUserID.ToString(), $"Added new loan, with loanID: {newLoan.LoanID}.");
             return CreatedAtRoute("GetLoanByID", new { LoanID = newLoan.LoanID }, newLoan.loanDTO);
         }
 
@@ -126,6 +138,9 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<bool> Return(int LoanID)
         {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "unknown";
+
             if (LoanID < 0)
                 return BadRequest("Input is invalid");
 
@@ -134,6 +149,7 @@ namespace Library_System_API.Controllers
             if (loan == null)
                 return NotFound($"Loan with id {LoanID} is not found");
 
+            _Logger.Log(ip, userID, $"returned loan, with loanID: {loan.LoanID}.");
             return Ok(loan.Return(LoanID));
         }
 
@@ -177,7 +193,16 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<bool> ExtendDueDate(int LoanID, DateTime DueDate) =>
-            (LoanID < 0) ? BadRequest("Input is invalid") : Ok(clsLoan.ExtendDueDate(LoanID, DueDate));
+        public ActionResult<bool> ExtendDueDate(int LoanID, DateTime DueDate) 
+        {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "unknown";
+
+            if (LoanID < 0)
+                return BadRequest("Input is invalid");
+
+            _Logger.Log(ip, userID, $"Extended due date of loan with loadID: {LoanID}.");
+            return Ok(clsLoan.ExtendDueDate(LoanID, DueDate));
+        }
     }
 }

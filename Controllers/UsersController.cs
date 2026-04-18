@@ -1,10 +1,9 @@
 ﻿using Library_Business;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Models.DTOs;
+using System.Security.Claims;
 
 namespace Library_System_API.Controllers
 {
@@ -13,10 +12,14 @@ namespace Library_System_API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IAuthorizationService authorizationService;
-
-        public UsersController(IAuthorizationService authorizationService)
+        private readonly IConfiguration _Configuration;
+        private readonly clsLoggerService _Logger; 
+        public UsersController(IAuthorizationService authorizationService, IConfiguration Configuration, 
+            clsLoggerService Logger)
         {
             this.authorizationService = authorizationService;
+            this._Configuration = Configuration;
+            this._Logger = Logger;
         }
 
         /// <summary>
@@ -96,6 +99,8 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public async Task<ActionResult> UpdatePassword(int UserID, string Password)
         {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
             if (UserID < 0 || string.IsNullOrEmpty(Password))
                 return BadRequest("Input is invalid");
 
@@ -113,7 +118,11 @@ namespace Library_System_API.Controllers
             bool result = clsUser.UpdatePassword(UserID, Password);
 
             if (result)
+            {
+                _Logger.Log(ip, User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "Unknown",
+                    "Password upated.");
                 return Ok("Password is updated suceesfully");
+            }
 
             return StatusCode(StatusCodes.Status500InternalServerError,
              new { message = "An error occurred while updating the password." });
@@ -158,6 +167,7 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<clsUserDTO> AddNewUser(clsUserDTO addedUser)
         {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
             if (!clsUser.IsValidInput(addedUser))
                 return BadRequest("Input is invalid");
 
@@ -170,6 +180,8 @@ namespace Library_System_API.Controllers
 
             addedUser.UserID = user.UserID;
             addedUser.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            _Logger.Log(ip, User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "Unknown",
+                    $"Created new User with ID {addedUser.UserID}.");
             return CreatedAtRoute("GetUserByID", new { userID = user.UserID }, user.userDTO);
         }
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Models.DTOs;
+using System.Security.Claims;
 
 namespace Library_System_API.Controllers
 {
@@ -12,6 +13,15 @@ namespace Library_System_API.Controllers
     [ApiController]
     public class FinesController : ControllerBase
     {
+        private readonly IConfiguration _Configuration;
+        private readonly clsLoggerService _Logger;
+
+        public FinesController(IConfiguration configuration, clsLoggerService logger)
+        {
+            _Configuration = configuration;
+            _Logger = logger;
+        }
+
         /// <summary>
         /// Adds a new fine to a loan that is not returned by its due date.
         /// </summary>
@@ -27,6 +37,9 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<clsFineDTO> AddNewFine(clsFineDTO addedFine)
         {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "unknown";
+
             if (!clsFine.IsValidInput(addedFine))
                 return BadRequest("Input is invalid");
 
@@ -38,7 +51,7 @@ namespace Library_System_API.Controllers
              new { message = "An error occurred while adding the new fine." });
 
             addedFine.FineID = newFine.FineID;
-
+            _Logger.Log(ip, userID, $"Added new fine, with fineID: {addedFine.FineID}.");
             return Ok(newFine.fineDTO);
         }
 
@@ -74,8 +87,17 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<bool> UpdatePaymentStatus(int FineID, bool IsPaid) =>
-            (FineID < 0) ? BadRequest("Input is invalid") : Ok(clsFine.UpdatePaymentStatus(FineID, IsPaid));
+        public ActionResult<bool> UpdatePaymentStatus(int FineID, bool IsPaid)
+        {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "unknown";
+
+            if (FineID < 0)
+                return BadRequest("Input is invalid");
+
+            _Logger.Log(ip, userID, $"Updated payment status to {(IsPaid ? "Paid": "Unpaid")} for fineID : {FineID}.");
+            return Ok(clsFine.UpdatePaymentStatus(FineID, IsPaid));
+        }
 
         /// <summary>
         /// Pays the fine amount of a specific fine.
@@ -88,8 +110,17 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<bool> PayFines(int FineID) =>
-            (FineID < 0) ? BadRequest("Input is invalid") : Ok(clsFine.PayFines(FineID));
+        public ActionResult<bool> PayFines(int FineID)
+        {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "unknown";
+
+            if (FineID < 0)
+                return BadRequest("Input is invalid");
+
+            _Logger.Log(ip, userID, $"Paid fines for fineID: {userID}.");
+            return Ok(clsFine.PayFines(FineID));
+        }
 
         /// <summary>
         /// Gets the amount of the unpaid fine amount for a specific member.

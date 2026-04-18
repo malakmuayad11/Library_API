@@ -1,10 +1,9 @@
 ﻿using Library_Business;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
-using Microsoft.OpenApi.Writers;
 using Models.DTOs;
+using System.Security.Claims;
 
 namespace Library_System_API.Controllers
 {
@@ -13,6 +12,15 @@ namespace Library_System_API.Controllers
     [ApiController]
     public class MembersController : ControllerBase
     {
+        private readonly IConfiguration _Configuration;
+        private readonly clsLoggerService _Logger;
+
+        public MembersController(IConfiguration configuration, clsLoggerService logger)
+        {
+            _Configuration = configuration;
+            _Logger = logger;
+        }
+
         /// <summary>
         /// Adds new member.
         /// </summary>
@@ -28,6 +36,8 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult AddNewMember(clsMemberDTO addedMember)
         {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
             if (!clsMember.IsValidMemberInput(addedMember))
                 return BadRequest("Input is invalid");
 
@@ -41,6 +51,9 @@ namespace Library_System_API.Controllers
              new { message = "An error occurred while adding the new member." });
 
             addedMember.MemberID = newMember.MemberID;
+
+            _Logger.Log(ip, User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "Unknown",
+                    $"Created member with memberID {addedMember.MemberID}.");
 
             return CreatedAtRoute("GetMemberByMemberID", new { MemberID = addedMember.MemberID }, newMember.memberDTO);
         }
@@ -62,6 +75,8 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<clsMemberDTO> UpdateMember(int MemberID, clsMemberDTO updatedMemberDTO)
         {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
             if (!clsMember.IsValidMemberInput(updatedMemberDTO))
                 return BadRequest("Input is invalid");
 
@@ -84,7 +99,11 @@ namespace Library_System_API.Controllers
             member.IsCancelled = updatedMemberDTO.IsCancelled;
 
             if (member.Save())
+            {
+                _Logger.Log(ip, User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "Unknown",
+                    $"Member with memeberID {MemberID} is updated.");
                 return Ok(member.memberDTO);
+            }
 
             return StatusCode(500,new { message = "An error occurred while updating the member" });
         }
@@ -126,9 +145,19 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<bool> UpdateCancel(int MemberID, bool IsCancelled) =>
-            (MemberID < 0) ? (BadRequest("Input is invalid")) : (Ok(clsMember.UpdateCancel(MemberID, IsCancelled)));
-
+        public ActionResult<bool> UpdateCancel(int MemberID, bool IsCancelled)
+        {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            if (MemberID < 0)
+                return (BadRequest("Input is invalid"));
+            else
+            {
+                _Logger.Log(ip, User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "Unknown",
+                    $"Membersip's status with memeberID {MemberID} is updated.");
+                return Ok(clsMember.UpdateCancel(MemberID, IsCancelled));
+            }
+        }
+       
         /// <summary>
         /// Gets all members with their approptiate info to display in the presentation layer.
         /// </summary>
@@ -160,9 +189,17 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<bool> RenewMembership(int MemberID) =>
-            (MemberID < 0) ? (BadRequest("Input is invalid")) : (Ok(clsMember.RenewMembership(MemberID)));
+        public ActionResult<bool> RenewMembership(int MemberID)
+        {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            if (MemberID < 0)
+                return BadRequest("Input is invalid");
 
+            _Logger.Log(ip, User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "Unknown",
+                    $"Membership with memeberID {MemberID} is renewed.");
+            return Ok(clsMember.RenewMembership(MemberID));
+        }
+        
         /// <summary>
         /// Returns the number of borrowed books by a specific member.
         /// </summary>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Models.DTOs;
+using System.Security.Claims;
 
 namespace Library_System_API.Controllers
 {
@@ -12,6 +13,15 @@ namespace Library_System_API.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
+        private readonly IConfiguration _Configuration;
+        private readonly clsLoggerService _Logger;
+
+        public BooksController(IConfiguration configuration, clsLoggerService logger)
+        {
+            _Configuration = configuration;
+            _Logger = logger;
+        }
+
         /// <summary>
         /// Gets all book's info, provided by its id.
         /// </summary>
@@ -79,6 +89,9 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult AddNewBook(clsBookDTO addedBook, string AuthorFirstName, string AuthorLastName)
         {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "unknown";
+
             if (!clsBook.IsValidInput(addedBook) ||
                 string.IsNullOrEmpty(AuthorFirstName) || string.IsNullOrEmpty(AuthorLastName))
                 return BadRequest("Input is invalid");
@@ -93,6 +106,7 @@ namespace Library_System_API.Controllers
 
             addedBook.BookID = newBook.BookID;
 
+            _Logger.Log(ip, userID, $"Added new book with bookID: {addedBook.BookID}.");
             return CreatedAtRoute("FindBookByID", new { BookID = addedBook.BookID }, newBook.bookDTO);
         }
 
@@ -111,6 +125,9 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<bool> SetCondition(int BookID, byte Condition)
         {
+            string ip = HttpContext.Connection.LocalIpAddress?.ToString() ?? "unknown";
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "unknown";
+
             if (BookID < 0)
                 return BadRequest("ID is invalid");
 
@@ -121,6 +138,9 @@ namespace Library_System_API.Controllers
 
             if (book == null)
                 return NotFound($"Book with id {BookID} is not found");
+
+            _Logger.Log(ip, userID, $"Updated book's condition to" +
+                $" {clsBook.GetConditionString(Condition)} for bookID: {BookID}.");
 
             return Ok(book.SetCondition((clsBook.enCondition)Condition));
         }
@@ -140,6 +160,9 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<bool> SetAvailabilityStatus(int BookID, byte AvailablilityStatus)
         {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "unknown";
+
             if (BookID < 0)
                 return BadRequest("ID is invalid");
 
@@ -151,6 +174,7 @@ namespace Library_System_API.Controllers
             if (book == null)
                 return NotFound($"Book with id {BookID} is not found");
 
+            _Logger.Log(ip, userID, $"Updated availability status of bookID {book.BookID} to {clsBook.GetAvaiabilityStatus(AvailablilityStatus)}.");
             return Ok(book.SetAvailabilityStatus((clsBook.enAvailabilityStatus)AvailablilityStatus));
         }
 
@@ -202,11 +226,17 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult DeleteBook(int BookID)
         {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "unknown";
+
             if (BookID < 0)
                 return BadRequest("ID is invalid");
 
             if (clsBook.DeleteBook(BookID))
+            {
+                _Logger.Log(ip, userID, $"Deleted book with bookID {BookID}.");
                 return Ok("Book is deleted sucessfully");
+            }
 
             return NotFound($"Book with id {BookID} is not found");
         }

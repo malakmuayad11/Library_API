@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Models.DTOs;
+using System.Security.Claims;
 
 namespace Library_System_API.Controllers
 {
@@ -12,6 +13,15 @@ namespace Library_System_API.Controllers
     [ApiController]
     public class CoursesController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
+        private readonly clsLoggerService _logger;
+
+        public CoursesController(IConfiguration configuration, clsLoggerService logger)
+        {
+            _configuration = configuration;
+            _logger = logger;
+        }
+
         /// <summary>
         /// Gets all course's info, provided by its id.
         /// </summary>
@@ -52,6 +62,9 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult AddNewCourse(clsCourseDTO addedCourse)
         {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "unknown";
+
             if (!clsCourse.IsValidInput(addedCourse))
                 return BadRequest("Input is invalid");
 
@@ -65,9 +78,8 @@ namespace Library_System_API.Controllers
              new { message = "An error occurred while adding the new course." });
 
             addedCourse.CourseID = newCourse.CourseID;
-
+            _logger.Log(ip, userID, $"Added a new course with courseID {addedCourse.CourseID}.");
             return CreatedAtRoute("GetCourseByID", new { CourseID = addedCourse.CourseID }, newCourse.courseDTO);
-
         }
 
         /// <summary>
@@ -87,6 +99,9 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<clsCourseDTO> UpdateCourse(int CourseID, clsCourseDTO courseDTO)
         {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "unknown";
+
             if (!clsCourse.IsValidInput(courseDTO))
                 return BadRequest("Invalid input");
 
@@ -107,6 +122,7 @@ namespace Library_System_API.Controllers
             if(!course.Save())
                 return StatusCode(500, new { message = "An error occurred while updating the course" });
 
+            _logger.Log(ip, userID, $"Updated course with courseID: {course.CourseID}.");
             return Ok(course.courseDTO);
         }
 
