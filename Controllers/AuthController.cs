@@ -16,26 +16,42 @@ namespace Library_System_API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _Configuration;
+        private readonly Library_Business.ILogger _Logger;
 
-        public AuthController(IConfiguration configuration) => _Configuration = configuration;
+        public AuthController(IConfiguration configuration, Library_Business.ILogger Logger)
+        {
+            _Configuration = configuration;
+            _Logger = Logger;
+        }
 
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public IActionResult Login([FromBody] LoginRequest request)
         {
+            string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
             clsUser user = clsUser.Find(request.Username);
 
             if (user == null)
+            {
+                _Logger.Log(ip, "Unknown", "Failed Login");
                 return Unauthorized("Invalid credentials");
+            }
 
             if (!user.IsActive)
+            {
+                _Logger.Log(ip, user.UserID.ToString(), "Login attempt failed: inactive account");
                 return Unauthorized("This account is not active.");
+            }
 
             if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
+            {
+                _Logger.Log(ip, user.UserID.ToString(),
+                    "Failed login attempt (bad password).");
                 return Unauthorized("Invalid credentials");
+            }
 
             var token = GenerateJwtToken(user);
             if(token == null)
@@ -57,7 +73,7 @@ namespace Library_System_API.Controllers
         [HttpPost("refresh")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
         public IActionResult Refresh([FromBody] RefreshRequest request)
         {
@@ -77,7 +93,11 @@ namespace Library_System_API.Controllers
 
             bool refreshValid = BCrypt.Net.BCrypt.Verify(request.RefreshToken, hash);
             if (!refreshValid)
+            {
+                _Logger.Log(HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                    user.UserID.ToString(), "Invalid refresh token attempt.");
                 return Unauthorized("Invalid refresh token");
+            }
 
             var token = GenerateJwtToken(user);
             var newAccessToken = new JwtSecurityTokenHandler().WriteToken(token);

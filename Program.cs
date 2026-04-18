@@ -76,6 +76,8 @@ builder.Services.AddRateLimiter(options =>
 // 🔹 Services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<Library_Business.ILogger, clsNotepadLogger>();
+builder.Services.AddScoped<clsLoggerService>();
 
 // 🔹 Swagger with JWT support
 builder.Services.AddSwaggerGen(options =>
@@ -199,6 +201,24 @@ app.Use(async (context, next) =>
     if (context.Response.StatusCode == StatusCodes.Status429TooManyRequests)
     {
         await context.Response.WriteAsync("Too many attempts. Please try again later.");
+    }
+});
+
+// Logging Forbidden Access
+app.Use(async (context, next) =>
+{
+    await next();
+
+    if (context.Response.StatusCode == StatusCodes.Status403Forbidden)
+    {
+        var loggerService = context.RequestServices.GetRequiredService<clsLoggerService>();
+
+        var ip = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+        var userIdClaim = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        int userId = int.TryParse(userIdClaim, out var id) ? id : 0;
+
+        loggerService.Log(ip, userIdClaim, "Forbidden Access");
     }
 });
 

@@ -53,8 +53,8 @@
           "500": {
             "description": "Internal Server Error"
           },
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "OK"
           },
           "429": {
             "description": "Too Many Requests",
@@ -127,8 +127,8 @@
           "500": {
             "description": "Internal Server Error"
           },
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "OK"
           },
           "429": {
             "description": "Too Many Requests",

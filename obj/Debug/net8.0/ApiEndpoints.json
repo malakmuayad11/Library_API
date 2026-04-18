@@ -31,7 +31,7 @@
       {
         "Type": "System.Void",
         "MediaTypes": [],
-        "StatusCode": 201
+        "StatusCode": 200
       },
       {
         "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
@@ -112,7 +112,7 @@
       {
         "Type": "System.Void",
         "MediaTypes": [],
-        "StatusCode": 201
+        "StatusCode": 200
       },
       {
         "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
