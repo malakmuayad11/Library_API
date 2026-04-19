@@ -607,7 +607,7 @@
         "StatusCode": 403
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsBookDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsBookDTO, Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1094,7 +1094,7 @@
         "StatusCode": 404
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsCourseGetAllDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsCourseGetAllDTO, Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1216,7 +1216,7 @@
         "StatusCode": 404
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsMemberGetAllForCourseDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsMemberGetAllForCourseDTO, Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1323,7 +1323,7 @@
         "StatusCode": 403
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsFineDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsFineDTO, Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1535,7 +1535,7 @@
         "StatusCode": 401
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsLoanGetAllDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsLoanGetAllDTO, Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -2254,7 +2254,7 @@
         "StatusCode": 403
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsMemberGetAllDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsMemberGetAllDTO, Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -2464,7 +2464,7 @@
         "StatusCode": 401
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsMembershipTypeDTO, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsMembershipTypeDTO, Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -2591,7 +2591,7 @@
   {
     "ContainingType": "Library_System_API.Controllers.UsersController",
     "Method": "UpdatePassword",
-    "RelativePath": "api/Library/Users/{UserID}/{Password}",
+    "RelativePath": "api/Library/Users/{UserID}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -2602,8 +2602,8 @@
         "IsRequired": true
       },
       {
-        "Name": "Password",
-        "Type": "System.String",
+        "Name": "passwordDTO",
+        "Type": "Models.DTOs.clsPasswordRequestDTO",
         "IsRequired": true
       }
     ],
@@ -2669,8 +2669,8 @@
   {
     "ContainingType": "Library_System_API.Controllers.UsersController",
     "Method": "GetUserByUsernameAndPassword",
-    "RelativePath": "api/Library/Users/{Username}/{Password}",
-    "HttpMethod": "GET",
+    "RelativePath": "api/Library/Users/{Username}",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -2680,8 +2680,8 @@
         "IsRequired": true
       },
       {
-        "Name": "Password",
-        "Type": "System.String",
+        "Name": "passwordDTO",
+        "Type": "Models.DTOs.clsPasswordRequestDTO",
         "IsRequired": true
       }
     ],
@@ -2771,7 +2771,7 @@
         "StatusCode": 404
       },
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsUserDTOImportantFields, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Models.DTOs.clsUserDTOImportantFields, Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -2844,73 +2844,5 @@
       }
     ],
     "EndpointName": "DoesUsernameExist"
-  },
-  {
-    "ContainingType": "Library_System_API.Controllers.UsersController",
-    "Method": "IsPasswordUsedByUser",
-    "RelativePath": "api/Library/Users/IsPasswordUsedByUser/{UserID}/{Password}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "UserID",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "Password",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 400
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 401
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 403
-      },
-      {
-        "Type": "System.Boolean",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 429
-      }
-    ],
-    "EndpointName": "IsPasswordUsedByUser"
   }
 ]

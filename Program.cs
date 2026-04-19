@@ -1,14 +1,16 @@
 using Azure.Identity;
+using Infrastructure.Logging;
 using Library_Business;
+using Library_Data;
 using Library_System_API.Authorization.Handlers;
+using Library_System_API.Authorization.Requirements;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
 using System.Text;
-using Library_System_API.Authorization.Requirements;
-using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -76,7 +78,7 @@ builder.Services.AddRateLimiter(options =>
 // 🔹 Services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddScoped<Library_Business.ILogger, clsNotepadLogger>();
+builder.Services.AddScoped<Infrastructure.Logging.ILogger, clsNotepadLogger>();
 builder.Services.AddScoped<clsLoggerService>();
 
 // 🔹 Swagger with JWT support
@@ -180,6 +182,9 @@ builder.Services.AddAuthorization(options =>
 });
 
 var app = builder.Build();
+
+clsSettingsData.Initialize(builder.Configuration);
+//clsLoggerData.Logger = app.Services.GetRequiredService<clsLoggerService>();
 
 // 🔹 Middleware
 if (app.Environment.IsDevelopment())

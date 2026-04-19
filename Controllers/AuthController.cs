@@ -16,9 +16,9 @@ namespace Library_System_API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _Configuration;
-        private readonly Library_Business.ILogger _Logger;
+        private readonly Infrastructure.Logging.ILogger _Logger;
 
-        public AuthController(IConfiguration configuration, Library_Business.ILogger Logger)
+        public AuthController(IConfiguration configuration, Infrastructure.Logging.ILogger Logger)
         {
             _Configuration = configuration;
             _Logger = Logger;

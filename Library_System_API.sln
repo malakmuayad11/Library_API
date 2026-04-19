@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36518.9
+# Visual Studio Version 18
+VisualStudioVersion = 18.5.11709.299 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library_System_API", "Library_System_API.csproj", "{47B59713-8D48-4093-B713-99E29CBEDFEA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library_Data", "..\Library_Data\Library_Data.csproj", "{CA762CA4-BF55-4718-A2E6-5D44353714F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "..\Models\Models.csproj", "{89007FA5-B721-452F-9D26-2C3BEC83704B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "..\Models\Infrastructure.csproj", "{89007FA5-B721-452F-9D26-2C3BEC83704B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library_Business", "..\Library_Business\Library_Business.csproj", "{2EEA0D4F-9A06-44DE-85DB-6DE03DF62242}"
 EndProject

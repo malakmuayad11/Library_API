@@ -1,4 +1,5 @@
-﻿using Library_Business;
+﻿using Infrastructure.Logging;
+using Library_Business;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
@@ -26,7 +27,6 @@ namespace Library_System_API.Controllers
         /// Gets all user's info, provided by their id.
         /// </summary>
         /// <param name="userID">User ID.</param>
-        /// <param name="Password">New password to set.</param>
         /// <returns>An object full of all user's info.</returns>
         [Authorize]
         [EnableRateLimiting("LightOpsLimiter")]
@@ -64,21 +64,21 @@ namespace Library_System_API.Controllers
         /// <returns>An object full of all user's info.</returns>
         [Authorize(Policy = "ManageUsers")]
         [EnableRateLimiting("AuthLimiter")]
-        [HttpGet("{Username}/{Password}", Name = "GetUserByUsernameAndPassword")]
+        [HttpPost("{Username}", Name = "GetUserByUsernameAndPassword")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
-        public ActionResult<clsUserDTO> GetUserByUsernameAndPassword(string Username, string Password)
+        public ActionResult<clsUserDTO> GetUserByUsernameAndPassword(string Username, clsPasswordRequestDTO passwordDTO)
         {
-            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(passwordDTO.Password))
                 return BadRequest("Input is invalid");
 
-            clsUser user = clsUser.Find(Username, Password);
+            clsUser user = clsUser.Find(Username, passwordDTO.Password);
 
             if (user == null)
-                return NotFound($"User with username {Username} and password {Password} is not found");
+                return NotFound($"User with username {Username} and password {passwordDTO.Password} is not found");
 
             return Ok(user.userDTO);
         }
@@ -89,7 +89,7 @@ namespace Library_System_API.Controllers
         /// <param name="UserID">User ID</param>
         [Authorize]
         [EnableRateLimiting("AuthLimiter")]
-        [HttpPut("{UserID}/{Password}", Name = "UpdatePassword")]
+        [HttpPut("{UserID}", Name = "UpdatePassword")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -97,11 +97,11 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
-        public async Task<ActionResult> UpdatePassword(int UserID, string Password)
+        public async Task<ActionResult> UpdatePassword(int UserID, clsPasswordRequestDTO passwordDTO)
         {
             string ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
-            if (UserID < 0 || string.IsNullOrEmpty(Password))
+            if (UserID < 0 || string.IsNullOrEmpty(passwordDTO.Password))
                 return BadRequest("Input is invalid");
 
             if (clsUser.Find(UserID) == null)
@@ -115,7 +115,7 @@ namespace Library_System_API.Controllers
             if (!authResult.Succeeded)
                 return Forbid(); // 403
 
-            bool result = clsUser.UpdatePassword(UserID, Password);
+            bool result = clsUser.UpdatePassword(UserID, passwordDTO.Password);
 
             if (result)
             {
@@ -204,28 +204,6 @@ namespace Library_System_API.Controllers
                 return BadRequest("Username should be provided");
 
             return Ok(clsUser.DoesUsernameExist(username));
-        }
-
-        /// <summary>
-        /// Determines whether the given password is used before by a specific user.
-        /// </summary>
-        /// <param name="UserID">The userID of the user to check for.</param>
-        /// <param name="Password">The password to check if used before by the specified user.</param>
-        /// <returns>Whether the specified password is used before by the specified user.</returns>
-        [Authorize(Policy = "ManageUsers")]
-        [EnableRateLimiting("AuthLimiter")]
-        [HttpGet("IsPasswordUsedByUser/{UserID}/{Password}", Name = "IsPasswordUsedByUser")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
-        public ActionResult<bool> IsPasswordUsedByUser(int UserID, string Password)
-        {
-            if (string.IsNullOrEmpty(Password) || UserID < 0)
-                return BadRequest("Password should be provided");
-
-            return Ok(clsUser.IsPasswordUsedByUser(UserID, Password));
         }
     }
 }
