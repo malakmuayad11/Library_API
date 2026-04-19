@@ -120,7 +120,14 @@ namespace Library_Business
 
         public static bool CanReturnBook(int LoanID) => clsLoanData.CanReturnBook(LoanID);
 
-        public static bool CanExtendLoan(int LoanID) => Find(LoanID).ReturnDate.HasValue ? false : true;
+        public static bool CanExtendLoan(int LoanID)
+        {
+            clsLoan loan = Find(LoanID);
+            if (loan == null)
+                return false;
+
+            return loan.ReturnDate.HasValue;
+        }
 
         public static bool ExtendDueDate(int LoanID, DateTime DueDate) =>
             clsLoanData.UpdateDueDate(LoanID, DueDate.AddDays(14));

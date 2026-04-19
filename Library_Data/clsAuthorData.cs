@@ -37,7 +37,7 @@ namespace Library_Data
             return AuthorID ?? -1;
         }
 
-        public static async Task<bool> IsAuthorExists(string FirstName, string LastName)
+        public static bool IsAuthorExists(string FirstName, string LastName)
         {
             bool isFound = false;
             try
@@ -49,7 +49,7 @@ namespace Library_Data
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@FirstName", FirstName);
                         command.Parameters.AddWithValue("@LastName", LastName);
-                        await connection.OpenAsync();
+                        connection.Open();
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {

@@ -48,35 +48,43 @@ namespace Library_Data
 
         public static int AddNewLoan(int BookID, int MemberID, int CreatedByUserID)
         {
-            int? LoanID = null;
             try
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
+                using (SqlCommand command = new SqlCommand("SP_AddNewLoan", connection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
 
-                    using (SqlCommand command = new SqlCommand("SP_AddNewLoan", connection))
+                    command.Parameters.AddWithValue("@BookID", BookID);
+                    command.Parameters.AddWithValue("@MemberID", MemberID);
+                    command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
+
+                    SqlParameter outputParam = new SqlParameter("@NewLoanID", SqlDbType.Int)
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@BookID", BookID);
-                        command.Parameters.AddWithValue("@MemberID", MemberID);
-                        command.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
-                        SqlParameter outputParam = new SqlParameter("@NewLoanID", SqlDbType.Int)
-                        {
-                            Direction = ParameterDirection.Output
-                        };
-                        command.Parameters.Add(outputParam);
-                        connection.Open();
+                        Direction = ParameterDirection.Output
+                    };
 
-                        command.ExecuteNonQuery();
-                        LoanID = (int)command.Parameters["@NewLoanID"].Value;
+                    command.Parameters.Add(outputParam);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                    object result = outputParam.Value;
+
+                    if (result == null || result == DBNull.Value)
+                    {
+                        clsLoggerData.Log("AddNewLoan: Output parameter is NULL.");
+                        return -1;
                     }
+
+                    return Convert.ToInt32(result);
                 }
             }
-            catch (SqlException ex)
-            { 
-                clsLoggerData.Log($"Error in clsLoanData -> AddNewLoan: {ex.Message}");
+            catch (Exception ex) 
+            {
+                clsLoggerData.Log($"Error in clsLoanData -> AddNewLoan: {ex}");
+                return -1;
             }
-            return LoanID ?? -1;
         }
 
         public static bool ReturnLoan(int LoanID, DateTime ReturnDate, float? FineAmount)

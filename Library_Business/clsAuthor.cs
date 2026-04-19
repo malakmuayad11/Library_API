@@ -45,8 +45,8 @@ namespace Library_Business
             return false;
         }
 
-        public static async Task<bool> IsAuthorExists(string FirstName, string LastName) =>
-            await clsAuthorData.IsAuthorExists(FirstName, LastName);
+        public static bool IsAuthorExists(string FirstName, string LastName) =>
+            clsAuthorData.IsAuthorExists(FirstName, LastName);
 
         public static clsAuthor FindByBookID(int BookID)
         {
