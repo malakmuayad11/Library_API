@@ -113,7 +113,7 @@ namespace Library_System_API.Controllers
                 "UserOwnerOrAdmin");
 
             if (!authResult.Succeeded)
-                return Forbid(); // 403
+                return Forbid(); 
 
             bool result = clsUser.UpdatePassword(UserID, passwordDTO.Password);
 
@@ -141,9 +141,6 @@ namespace Library_System_API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<clsUserDTOImportantFields>>> GetAllUsersAsync()
         {
-            Console.WriteLine(User.Identity?.IsAuthenticated);
-            Console.WriteLine(User.Identity?.Name);
-
             List<clsUserDTOImportantFields> users = await clsUser.GetAllUsersAsync();
 
             if (users == null || users.Count == 0)

@@ -1,6 +1,4 @@
 ﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
-using Models.DTOs;
 using System.Data;
 
 namespace Library_Data
@@ -36,8 +34,7 @@ namespace Library_Data
             }
             catch (SqlException ex)
             {
-                //clsLoggerData.Log($"Error in clUserData -> AddNewUser: {ex}");
-                //throw new Exception("DB Error");
+                clsLoggerData.Log($"Error in clsUsersTokensData -> Login: {ex}");
             }
             return TokenID ?? -1;
         }
@@ -62,8 +59,7 @@ namespace Library_Data
             }
             catch (SqlException ex)
             {
-                //clsLoggerData.Log($"Error in clsMemberData -> UpdateMember: {ex.Message}");
-                throw new Exception("DB Error");
+                clsLoggerData.Log($"Error in clsUsersTokensData -> Logout: {ex.Message}");
             }
             return rowsEffected > 0;
         }
@@ -89,66 +85,9 @@ namespace Library_Data
             }
             catch (SqlException ex)
             {
-                throw new Exception("DB Error");
-                //clsLoggerData.Log($"Error in clsCourseData -> GetNumberOfEnrolledMembers: {ex.Message}");
+                clsLoggerData.Log($"Error in clsUsersTokensData -> GetRefreshTokenHashForUser: {ex.Message}");
             }
             return RefreshTokenHash;
-        }
-
-        public static DateTime? GetRefreshTokenRevokedAt(int UserID)
-        {
-            DateTime? RefreshTokenRevokedAt = null;
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
-                {
-                    using (SqlCommand command = new SqlCommand("SP_GetRefreshTokenRevokedAt", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@UserID", UserID);
-                        connection.Open();
-
-                        object result = command.ExecuteScalar();
-                        if ((DateTime)result != null)
-                            RefreshTokenRevokedAt = (DateTime)result;
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("DB Error");
-                //clsLoggerData.Log($"Error in clsCourseData -> GetNumberOfEnrolledMembers: {ex.Message}");
-            }
-            return RefreshTokenRevokedAt;
-        }
-
-        public static DateTime? GetRefreshTokenExpiresAt(int UserID)
-        {
-            DateTime? RefreshTokenExpiresAt = null;
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
-                {
-                    using (SqlCommand command = new SqlCommand("SP_GetRefreshTokenExpiresAt", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@UserID", UserID);
-                        connection.Open();
-
-                        object result = command.ExecuteScalar();
-                        if ((DateTime)result != null)
-                            RefreshTokenExpiresAt = (DateTime)result;
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("DB Error");
-                //clsLoggerData.Log($"Error in clsCourseData -> GetNumberOfEnrolledMembers: {ex.Message}");
-            }
-            return RefreshTokenExpiresAt;
         }
 
         public static bool Refresh(int UserID, string RefreshTokenHash, DateTime? RefreshTokenExpiresAt)
@@ -173,8 +112,7 @@ namespace Library_Data
             }
             catch (SqlException ex)
             {
-                //clsLoggerData.Log($"Error in clsBookData -> UpdateCondition: {ex.Message}");
-                throw new Exception("DB error");
+                clsLoggerData.Log($"Error in clsUsersTokensData -> Refresh: {ex.Message}");
             }
             return rowsEffected > 0;
         }
@@ -213,9 +151,9 @@ namespace Library_Data
                     }
                 }
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
-                throw new Exception("DB Error");
+                clsLoggerData.Log($"Error in clsUsersTokensData -> GetTokenDataForUser: {ex.Message}");
             }
 
             return (expiresAt, revokedAt, hash);

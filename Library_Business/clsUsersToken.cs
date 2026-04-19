@@ -1,6 +1,4 @@
 ﻿using Library_Data;
-using Microsoft.Data.SqlClient;
-using System.Data;
 
 namespace Library_Business
 {
@@ -14,12 +12,6 @@ namespace Library_Business
 
         public static string GetRefreshTokenHashForUser(int UserID) =>
             clsUsersTokensData.GetRefreshTokenHashForUser(UserID);
-
-        public static DateTime? GetRefreshTokenRevokedAt(int UserID) =>
-            clsUsersTokensData.GetRefreshTokenRevokedAt(UserID);
-
-        public static DateTime? GetRefreshTokenExpiresAt(int UserID) =>
-            clsUsersTokensData.GetRefreshTokenExpiresAt(UserID);
 
         public static bool Refresh(int UserID, string RefreshTokenHash, DateTime? RefreshTokenExpiresAt) =>
             clsUsersTokensData.Refresh(UserID, RefreshTokenHash, RefreshTokenExpiresAt);

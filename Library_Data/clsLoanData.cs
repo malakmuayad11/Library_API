@@ -1,7 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using Models.DTOs;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
@@ -9,13 +7,6 @@ namespace Library_Data
 {
     public static class clsLoanData
     {
-        private static clsLoggerData _logger;
-
-        static clsLoanData()
-        {
-            _logger = new clsLoggerData();
-        }
-
         public async static Task<List<clsLoanGetAllDTO>> GetAllLoansAsync()
         {
             List<clsLoanGetAllDTO> loans = new List<clsLoanGetAllDTO>();
@@ -24,10 +15,11 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
                     using (SqlCommand command = new SqlCommand("SP_GetAllLoans", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
+                        await connection.OpenAsync();
+
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                             while (await reader.ReadAsync())
@@ -61,7 +53,6 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
 
                     using (SqlCommand command = new SqlCommand("SP_AddNewLoan", connection))
                     {
@@ -74,6 +65,8 @@ namespace Library_Data
                             Direction = ParameterDirection.Output
                         };
                         command.Parameters.Add(outputParam);
+                        connection.Open();
+
                         command.ExecuteNonQuery();
                         LoanID = (int)command.Parameters["@NewLoanID"].Value;
                     }
@@ -93,14 +86,13 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_ReturnLoan", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@ReturnDate", ReturnDate);
                         command.Parameters.AddWithValue("@FineAmount", FineAmount ?? (object)DBNull.Value);
                         command.Parameters.AddWithValue("@LoanID", LoanID);
+                        connection.Open();
 
                         rowsEffected = command.ExecuteNonQuery();
                     }
@@ -119,12 +111,11 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_GetLoanByID", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@LoanID", LoanID);
+                        connection.Open();
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -159,12 +150,11 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_GetLoanByMemberID", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@MemberID", MemberID);
+                        connection.Open();
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -199,12 +189,12 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_CanReturnBook", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@LoanID", LoanID);
+                        connection.Open();
+
                         isFound = (int)command.ExecuteScalar();
                     }
                 }
@@ -223,13 +213,12 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_UpdateDueDate", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@DueDate", DueDate);
                         command.Parameters.AddWithValue("@LoanID", LoanID);
+                        connection.Open();
 
                         rowsEffected = command.ExecuteNonQuery();
                     }

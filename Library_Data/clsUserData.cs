@@ -7,11 +7,6 @@ namespace Library_Data
 {
     public static class clsUserData
     {
-        private static clsLoggerData _logger;
-        static clsUserData()
-        {
-            _logger = new clsLoggerData();
-        }
         public static clsUserDTO Find(int UserID)
         {
             try
@@ -124,11 +119,10 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    await connection.OpenAsync();
-
                     using (SqlCommand command = new SqlCommand("SP_GetAllUsers", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
+                        await connection.OpenAsync();
 
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
@@ -160,7 +154,6 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
                     using (SqlCommand command = new SqlCommand("SP_AddNewUser", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -176,6 +169,7 @@ namespace Library_Data
                         };
 
                         command.Parameters.Add(outputParam);
+                        connection.Open();
                         command.ExecuteNonQuery();
                         UserID = (int)command.Parameters["@UserID"].Value;
                     }
@@ -195,12 +189,11 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_DoesUsernameExist", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@Username", Username);
+                        connection.Open();
 
                         isFound = (int)command.ExecuteScalar();
                     }

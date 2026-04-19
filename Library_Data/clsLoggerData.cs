@@ -1,25 +1,21 @@
-﻿using Infrastructure.Logging;
-using System;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace Library_Data
 {
     public class clsLoggerData
     {
-        public static clsLoggerService Logger;
-
-        private static readonly string _logFileName;
+        private static string _logFileName;
         private static string _logFilePath;
-        private static readonly string _logsDirectory;
+        private static string _logsDirectory;
 
-        static clsLoggerData()
+        public static void Initialize(IConfiguration configuration)
         {
-            _logFileName = "LibrarySystemLogs";
-            _logsDirectory = @"C:\Logs";
+            _logsDirectory = configuration["LogsFilePath"];
 
             if (!Directory.Exists(_logsDirectory))
                 Directory.CreateDirectory(_logsDirectory);
 
-            _logFilePath = Path.Combine(_logsDirectory, _logFileName);
+            _logFilePath = Path.Combine(_logsDirectory, "Logs.txt");
         }
 
         public static void Log(string message)

@@ -7,11 +7,6 @@ namespace Library_Data
 {
     public static class clsMembershipTypeData
     {
-        private static clsLoggerData _logger;
-        static clsMembershipTypeData()
-        {
-            _logger = new clsLoggerData();
-        }
         public static async Task<List<clsMembershipTypeDTO>> GetAllMembershipTypesAsync()
         {
             List<clsMembershipTypeDTO> list = new List<clsMembershipTypeDTO>();
@@ -19,10 +14,11 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand("SP_GetAllMembershipTypes", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
+                        await connection.OpenAsync();
+
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                             while(await reader.ReadAsync())
@@ -51,12 +47,11 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_GetMembershipTypeByID", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@MembershipTypeID", MembershipTypeID);
+                        connection.Open();
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {

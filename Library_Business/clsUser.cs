@@ -11,9 +11,6 @@ namespace Library_Business
         public enum enRole { Admin = 1, Staff = 2 }
         public enRole Role { get; set; }
         public bool IsActive { get; set; }
-        public string RefreshTokenHash { get; set; }
-        public DateTime? RefreshTokenExpiresAt { get; set; }
-        public DateTime? RefreshTokenRevokedAt { get; set; }
 
         public clsUserDTO userDTO
         {

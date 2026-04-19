@@ -1,7 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using Models.DTOs;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
@@ -9,13 +7,6 @@ namespace Library_Data
 {
     public class clsMemberData
     {
-        private static clsLoggerData _logger;
-
-        static clsMemberData()
-        {
-            _logger = new clsLoggerData();
-        }
-
         public static int AddNewMember(clsMemberDTO memberDTO)
         {
             int? MemberID = null;
@@ -23,7 +14,6 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
                     using (SqlCommand command = new SqlCommand("SP_AddNewMember", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -43,6 +33,8 @@ namespace Library_Data
                             Direction = ParameterDirection.Output
                         };
                         command.Parameters.Add(outputParam);
+                        connection.Open();
+
                         command.ExecuteNonQuery();
                         MemberID = (int)command.Parameters["@MemberID"].Value;
                     }
@@ -62,8 +54,6 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("sp_UpdateMember", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -80,6 +70,7 @@ namespace Library_Data
                         command.Parameters.AddWithValue("@IsCancelled", memberDTO.IsCancelled);
                         command.Parameters.AddWithValue("@MemberID", memberDTO.MemberID);
 
+                        connection.Open();
                         rowsEffected = command.ExecuteNonQuery();
                     }
                 }
@@ -98,14 +89,13 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_UpdateCancel", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@IsCancelled", IsCancelled);
                         command.Parameters.AddWithValue("@MemberID", MemberID);
 
+                        connection.Open();
                         rowsEffected = command.ExecuteNonQuery();
                     }
                 }
@@ -123,12 +113,11 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_GetMemberByID", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@MemberID", MemberID);
+                        connection.Open();
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -171,10 +160,11 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
                     using (SqlCommand command = new SqlCommand("SP_GetAllMembers", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
+                        await connection.OpenAsync();
+
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                             while(await reader.ReadAsync())
@@ -211,13 +201,12 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_RenewMembership", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@MemberID", MemberID);
 
+                        connection.Open();
                         rowsEffected = command.ExecuteNonQuery();
                     }
                 }
@@ -237,12 +226,12 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
                     using (SqlCommand command = new SqlCommand("SP_GetNumberOfBorrowedBook", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@MemberID", MemberID);
 
+                        connection.Open();
                         NumberOfBorrowedBooks = (int)command.ExecuteScalar();
                     }
                 }

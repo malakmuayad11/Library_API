@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using Models.DTOs;
-using System;
 using System.Data;
 using System.Threading.Tasks;
 
@@ -8,13 +7,6 @@ namespace Library_Data
 {
     public static class clsCourseData
     {
-        private static clsLoggerData _logger;
-
-        static clsCourseData()
-        {
-            _logger = new clsLoggerData();
-        }
-
         public async static Task<List<clsCourseGetAllDTO>> GetAllCoursesAsync()
         {
             List<clsCourseGetAllDTO> courses = new List<clsCourseGetAllDTO>();
@@ -23,11 +15,12 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
 
                     using (SqlCommand command = new SqlCommand("SP_GetAllCourses", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
+                        await connection.OpenAsync();
+
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                             while(await reader.ReadAsync())
@@ -62,12 +55,12 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_GetAllMembersForCourse", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@CourseID", CourseID);
+                        await connection.OpenAsync();
+
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                             while(await reader.ReadAsync())
@@ -99,8 +92,6 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_AddNewCourse", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -118,6 +109,8 @@ namespace Library_Data
                             Direction = ParameterDirection.Output
                         };
                         command.Parameters.Add(outputParam);
+                        connection.Open();
+
                         command.ExecuteNonQuery();
                         CourseID = (int)command.Parameters["@NewCourseID"].Value;
                     }
@@ -137,13 +130,13 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_EnrollMemberInCourse", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@MemberID", MemberID);
                         command.Parameters.AddWithValue("@CourseID", CourseID);
+                        connection.Open();
+
                         object result = command.ExecuteScalar();
                         if (result != null && int.TryParse(result.ToString(), out rowsEffected)) { }
                     }
@@ -162,12 +155,11 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_GetCourseByID", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@CourseID", CourseID);
+                        connection.Open();
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -204,11 +196,12 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
                     using (SqlCommand command = new SqlCommand("SP_GetNumberOfEnrolledMembers", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@CourseID", CourseID);
+                        connection.Open();
+
                         object result = command.ExecuteScalar();
                         if (result != null && byte.TryParse(result.ToString(), out byte insertedResult))
                             NumberOfEnrolledMembers = insertedResult;
@@ -229,8 +222,6 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_UpdateCourse", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -244,6 +235,7 @@ namespace Library_Data
                         command.Parameters.AddWithValue("@Notes", courseDTO.Notes ?? (object)DBNull.Value);
                         command.Parameters.AddWithValue("@CourseID", courseDTO.CourseID);
 
+                        connection.Open();
                         rowsEffected = command.ExecuteNonQuery();
                     }
                 }

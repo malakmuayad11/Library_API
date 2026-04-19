@@ -1,7 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using Models.DTOs;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
@@ -9,11 +7,6 @@ namespace Library_Data
 {
     public class clsFineData
     {
-        private static clsLoggerData _logger;
-        static clsFineData()
-        {
-            _logger = new clsLoggerData();
-        }
         public static int AddNewFine(clsFineDTO fineDTO)
         {
             int? FineID = null;
@@ -21,8 +14,6 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_AddNewFine", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -34,6 +25,8 @@ namespace Library_Data
                             Direction = ParameterDirection.Output
                         };
                         command.Parameters.Add(outputParam);
+                        connection.Open();
+
                         command.ExecuteNonQuery();
                         FineID = (int)command.Parameters["@NewFineID"].Value;
                     }
@@ -54,11 +47,11 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_GetAllFines", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
+                        await connection.OpenAsync();
+
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                             while (await reader.ReadAsync())
@@ -92,13 +85,12 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_UpdatePaymentStatus", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@FineID", FineID);
                         command.Parameters.AddWithValue("@IsPaid", IsPaid);
+                        connection.Open();
 
                         rowsEffected = command.ExecuteNonQuery();
                     }
@@ -118,13 +110,12 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_UpdateFineAmount", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@FineID", FineID);
                         command.Parameters.AddWithValue("@FineAmount", FineAmount);
+                        connection.Open();
 
                         rowsEffected = command.ExecuteNonQuery();
                     }
@@ -145,11 +136,12 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
                     using (SqlCommand command = new SqlCommand("SP_GetMemberUnpaidFines", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@MemberID", MemberID);
+                        connection.Open();
+
                         object result = command.ExecuteScalar();
                         if (decimal.TryParse(result.ToString(), out decimal insertedResult))
                             UnpaidFees = insertedResult;

@@ -1,7 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using Models.DTOs;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
@@ -9,12 +7,6 @@ namespace Library_Data
 {
     public static class clsBookData
     {
-        private static clsLoggerData _logger;
-        static clsBookData()
-        {
-            _logger = new clsLoggerData();
-        }
-
         public static int AddNewBook(clsBookDTO bookDTO)
         {
             int? BookID = null;
@@ -22,8 +14,6 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_AddNewBook", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -39,6 +29,8 @@ namespace Library_Data
                             Direction = ParameterDirection.Output
                         };
                         command.Parameters.Add(outputParam);
+                        connection.Open();
+
                         command.ExecuteNonQuery();
                         BookID = (int)command.Parameters["@NewBookID"].Value;
                     }
@@ -58,14 +50,13 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_UpdateCondition", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@Condition", Condition);
                         command.Parameters.AddWithValue("@BookID", BookID);
 
+                        connection.Open();
                         rowsEffected = command.ExecuteNonQuery();
                     }
                 }
@@ -84,14 +75,13 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_UpdateAvailabilityStatus", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@AvailabilityStatus", AvailabilityStatus);
                         command.Parameters.AddWithValue("@BookID", BookID);
 
+                        connection.Open();
                         rowsEffected = command.ExecuteNonQuery();
                     }
                 }
@@ -111,11 +101,10 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_GetAllBooks", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
+                        await connection.OpenAsync();
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                             while (await reader.ReadAsync())
@@ -148,12 +137,11 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_GetBookByID", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@BookID", BookID);
+                        connection.Open();
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -187,12 +175,11 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_GetBookByTitle", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@Title", Title);
+                        connection.Open();
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -228,12 +215,11 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_DoesISBNExist", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@ISBN", ISBN);
+                        connection.Open();
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -256,13 +242,13 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_AddAuthorToBook", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@AuthorID", AuthorID);
                         command.Parameters.AddWithValue("@BookID", BookID);
+                        connection.Open();
+
                         rowsEffected = command.ExecuteNonQuery();
                     }
                 }
@@ -281,12 +267,11 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_DeleteBook", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@BookID", BookID);
+                        connection.Open();
 
                         rowsEffected = command.ExecuteNonQuery();
                     }
@@ -307,12 +292,12 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_GetAuthorID", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@BookID", BookID);
+                        connection.Open();
+
                         object result = command.ExecuteScalar();
                         if (result != null && int.TryParse(result.ToString(), out int insertedID))
                             AuthorID = insertedID;

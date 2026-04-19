@@ -6,7 +6,6 @@ namespace Library_System_API.Authorization.Requirements
     {
         public int Permissions { get; }
 
-        public HasUserPermissionsRequirement(int Permissions) =>
-            this.Permissions = Permissions;
+        public HasUserPermissionsRequirement(int Permissions) => this.Permissions = Permissions;
     }
 }

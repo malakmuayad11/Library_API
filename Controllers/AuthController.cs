@@ -1,11 +1,7 @@
 ﻿using Library_Business;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using Models.Auth;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 using Microsoft.AspNetCore.RateLimiting;
 
 namespace Library_System_API.Controllers
@@ -53,11 +49,11 @@ namespace Library_System_API.Controllers
                 return Unauthorized("Invalid credentials");
             }
 
-            var token = GenerateJwtToken(user);
+            var token = clsTokenService.GenerateJwtToken(user, _Configuration);
             if(token == null)
                 return StatusCode(500, "JWT key missing from Key Vault");
 
-            string refreshToken = GenerateRefreshToken();
+            string refreshToken = clsTokenService.GenerateRefreshToken();
 
             if (!clsUsersToken.Login(user.UserID, BCrypt.Net.BCrypt.HashPassword(refreshToken),
                 DateTime.UtcNow.AddDays(7)))
@@ -99,11 +95,11 @@ namespace Library_System_API.Controllers
                 return Unauthorized("Invalid refresh token");
             }
 
-            var token = GenerateJwtToken(user);
+            var token = clsTokenService.GenerateJwtToken(user, _Configuration);
             var newAccessToken = new JwtSecurityTokenHandler().WriteToken(token);
 
             // Rotation: replace refresh token
-            var newRefreshToken = GenerateRefreshToken();
+            var newRefreshToken = clsTokenService.GenerateRefreshToken();
             string NewRefreshTokenHash = BCrypt.Net.BCrypt.HashPassword(newRefreshToken);
             
             if (!clsUsersToken.Refresh(user.UserID, NewRefreshTokenHash, DateTime.UtcNow.AddDays(7)))
@@ -137,38 +133,6 @@ namespace Library_System_API.Controllers
             return Ok("Logged out successfully");
         }
 
-        private static string GenerateRefreshToken()
-        {
-            var bytes = new byte[64];
-            using var rng = RandomNumberGenerator.Create();
-            rng.GetBytes(bytes);
-            return Convert.ToBase64String(bytes);
-        }
-
-        private JwtSecurityToken GenerateJwtToken(clsUser user)
-        {
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString()),
-                new Claim(ClaimTypes.Role, user.RoleString),
-                new Claim("permissions", user.PermissionsInt.ToString())
-            };
-
-            var secretKey = _Configuration["JwtSigningKey"];
-
-            if (string.IsNullOrWhiteSpace(secretKey))
-                return null;
-
-            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-            SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            return new JwtSecurityToken(
-                issuer: "LibrarySystemApi",
-                audience: "LibrarySystemApiUsers",
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(30),
-                signingCredentials: creds
-            );
-        }
+        
     }
 }

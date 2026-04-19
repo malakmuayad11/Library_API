@@ -1,6 +1,4 @@
-﻿using Infrastructure.Logging;
-using Microsoft.Extensions.Configuration;
-using System.Runtime.CompilerServices;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace Library_Data
 {
@@ -8,9 +6,6 @@ namespace Library_Data
     {
         public static string ConnectionString { get; private set; }
 
-        public static void Initialize(IConfiguration configuration)
-        {
-            ConnectionString = configuration["ConnectionString"];
-        }
+        public static void Initialize(IConfiguration configuration) => ConnectionString = configuration["ConnectionString"];
     }
 }

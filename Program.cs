@@ -6,7 +6,6 @@ using Library_System_API.Authorization.Handlers;
 using Library_System_API.Authorization.Requirements;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
@@ -184,7 +183,7 @@ builder.Services.AddAuthorization(options =>
 var app = builder.Build();
 
 clsSettingsData.Initialize(builder.Configuration);
-//clsLoggerData.Logger = app.Services.GetRequiredService<clsLoggerService>();
+clsLoggerData.Initialize(builder.Configuration);
 
 // 🔹 Middleware
 if (app.Environment.IsDevelopment())

@@ -1,5 +1,4 @@
-﻿using Infrastructure.Logging;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using Models.DTOs;
 using System.Data;
 
@@ -14,8 +13,6 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_AddNewAuthor", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -26,6 +23,8 @@ namespace Library_Data
                             Direction = ParameterDirection.Output
                         };
                         command.Parameters.Add(outputParam);
+                        connection.Open();
+
                         command.ExecuteNonQuery();
                         AuthorID = (int)command.Parameters["@AuthorID"].Value;
                     }
@@ -38,20 +37,19 @@ namespace Library_Data
             return AuthorID ?? -1;
         }
 
-        public static bool IsAuthorExists(string FirstName, string LastName)
+        public static async Task<bool> IsAuthorExists(string FirstName, string LastName)
         {
             bool isFound = false;
             try
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_IsAuthorExists", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@FirstName", FirstName);
                         command.Parameters.AddWithValue("@LastName", LastName);
+                        await connection.OpenAsync();
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -73,12 +71,11 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_GetAuthorByBookID", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@BookID", BookID);
+                        connection.Open();
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -107,13 +104,12 @@ namespace Library_Data
             {
                 using (SqlConnection connection = new SqlConnection(clsSettingsData.ConnectionString))
                 {
-                    connection.Open();
-
                     using (SqlCommand command = new SqlCommand("SP_GetAuthorByFirstAndLastName", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@FirstName", FirstName);
                         command.Parameters.AddWithValue("@LastName", LastName);
+                        connection.Open();
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {

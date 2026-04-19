@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Models.DTOs
+﻿namespace Models.DTOs
 {
     public class clsMemberGetAllDTO
     {
