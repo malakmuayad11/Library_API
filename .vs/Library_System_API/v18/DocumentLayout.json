@@ -88,18 +88,6 @@
       "AbsoluteMoniker": "D:0:0:{2EEA0D4F-9A06-44DE-85DB-6DE03DF62242}|..\\Library_Business\\Library_Business.csproj|c:\\programming\\library_business\\clsloan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\dtos\\clsmembershiptypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\dtos\\clspasswordrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\dtos\\clsuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\dtos\\clsuserdtoimportantfields.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2EEA0D4F-9A06-44DE-85DB-6DE03DF62242}|..\\Library_Business\\Library_Business.csproj|c:\\programming\\library_business\\clsuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -122,30 +110,12 @@
       "RelativeMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|solutionrelative:library_system_api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\auth\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\auth\\refreshrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\auth\\logoutrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\auth\\tokenresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\dtos\\clscoursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|c:\\programming\\library_system_api\\authorization\\handlers\\hasuserpermissionshandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|solutionrelative:authorization\\handlers\\hasuserpermissionshandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|c:\\programming\\library_system_api\\authorization\\requirements\\hasuserpermissionsrequirement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|solutionrelative:authorization\\requirements\\hasuserpermissionsrequirement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\dtos\\clsauthordto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2EEA0D4F-9A06-44DE-85DB-6DE03DF62242}|..\\Library_Business\\Library_Business.csproj|c:\\programming\\library_business\\clsutil.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -155,25 +125,55 @@
       "RelativeMoniker": "D:0:0:{47B59713-8D48-4093-B713-99E29CBEDFEA}|Library_System_API.csproj|solutionrelative:library_system_api.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\dtos\\clsbookdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\dtos\\clsmembershiptypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\dtos\\clsbookgetalldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\dtos\\clspasswordrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\dtos\\clscoursegetalldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\dtos\\clsuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\dtos\\clsfinedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\dtos\\clsuserdtoimportantfields.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\dtos\\clsloandto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\auth\\refreshrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\dtos\\clsloangetalldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\auth\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Models.csproj|c:\\programming\\models\\dtos\\clsmemberdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\auth\\logoutrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\auth\\tokenresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\dtos\\clscoursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\dtos\\clsauthordto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\dtos\\clsbookdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\dtos\\clsbookgetalldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\dtos\\clscoursegetalldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\dtos\\clsfinedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\dtos\\clsloandto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\dtos\\clsloangetalldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89007FA5-B721-452F-9D26-2C3BEC83704B}|..\\Models\\Infrastructure.csproj|c:\\programming\\models\\dtos\\clsmemberdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -195,8 +195,7 @@
               "RelativeToolTip": "Controllers\\MembershipTypesController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-19T13:52:11.56Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-19T13:52:11.56Z"
             },
             {
               "$type": "Document",
@@ -208,8 +207,7 @@
               "RelativeToolTip": "Controllers\\MembersController.cs",
               "ViewState": "AgIAALYAAAAAAAAAAAAQwMYAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-19T13:51:56.245Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-19T13:51:56.245Z"
             },
             {
               "$type": "Document",
@@ -234,8 +232,7 @@
               "RelativeToolTip": "Controllers\\AuthorsController.cs",
               "ViewState": "AgIAAEkAAAAAAAAAAAAYwEcAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T11:39:43.418Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T11:39:43.418Z"
             },
             {
               "$type": "Document",
@@ -247,8 +244,7 @@
               "RelativeToolTip": "Controllers\\BooksController.cs",
               "ViewState": "AgIAAN0AAAAAAAAAAAAQwO0AAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T10:03:00.535Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T10:03:00.535Z"
             },
             {
               "$type": "Document",
@@ -260,8 +256,7 @@
               "RelativeToolTip": "Controllers\\UsersController.cs",
               "ViewState": "AgIAAHgAAAAAAAAAAAAAAHkAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T16:22:41.254Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-14T16:22:41.254Z"
             },
             {
               "$type": "Document",
@@ -273,8 +268,7 @@
               "RelativeToolTip": "..\\Library_Data\\clsLoggerData.cs",
               "ViewState": "AgIAAAsAAAAAAAAAAAAAwAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T15:45:29.324Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-14T15:45:29.324Z"
             },
             {
               "$type": "Document",
@@ -286,8 +280,7 @@
               "RelativeToolTip": "Controllers\\CoursesController.cs",
               "ViewState": "AgIAAG0AAAAAAAAAAAAkwH0AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T16:36:38.592Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T16:36:38.592Z"
             },
             {
               "$type": "Document",
@@ -299,8 +292,7 @@
               "RelativeToolTip": "Controllers\\FinesController.cs",
               "ViewState": "AgIAAGkAAAAAAAAAAAAQwHkAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T11:45:14.227Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T11:45:14.227Z"
             },
             {
               "$type": "Document",
@@ -312,8 +304,7 @@
               "RelativeToolTip": "Controllers\\LoansController.cs",
               "ViewState": "AgIAALwAAAAAAAAAAAAQwMwAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T15:16:38.542Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-23T15:16:38.542Z"
             },
             {
               "$type": "Document",
@@ -325,8 +316,7 @@
               "RelativeToolTip": "..\\Library_Data\\clsAuthorData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAGIAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-19T12:54:16.761Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-19T12:54:16.761Z"
             },
             {
               "$type": "Document",
@@ -338,8 +328,7 @@
               "RelativeToolTip": "..\\Library_Data\\clsBookData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-19T13:38:14.746Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-19T13:38:14.746Z"
             },
             {
               "$type": "Document",
@@ -351,8 +340,7 @@
               "RelativeToolTip": "..\\Library_Data\\clsCourseData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-19T13:38:12.745Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-19T13:38:12.745Z"
             },
             {
               "$type": "Document",
@@ -364,8 +352,7 @@
               "RelativeToolTip": "..\\Library_Data\\clsMemberData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAFsAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-18T15:35:35.163Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-18T15:35:35.163Z"
             },
             {
               "$type": "Document",
@@ -377,8 +364,7 @@
               "RelativeToolTip": "..\\Library_Data\\clsMembershipTypeData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-18T14:49:39.113Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-18T14:49:39.113Z"
             },
             {
               "$type": "Document",
@@ -390,8 +376,7 @@
               "RelativeToolTip": "..\\Library_Data\\clsSettingsData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T15:27:14.481Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-14T15:27:14.481Z"
             },
             {
               "$type": "Document",
@@ -403,8 +388,7 @@
               "RelativeToolTip": "..\\Library_Data\\clsUserData.cs",
               "ViewState": "AgIAAHUAAAAAAAAAAAAowAwAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-19T10:42:59.223Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-19T10:42:59.223Z"
             },
             {
               "$type": "Document",
@@ -416,8 +400,7 @@
               "RelativeToolTip": "..\\Library_Data\\clsLoanData.cs",
               "ViewState": "AgIAAAsAAAAAAAAAAAAQwDgAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T14:43:30.554Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-23T14:43:30.554Z"
             },
             {
               "$type": "Document",
@@ -429,8 +412,7 @@
               "RelativeToolTip": "..\\Library_Data\\clsFineData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADAAAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T09:10:12.662Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T09:10:12.662Z"
             },
             {
               "$type": "Document",
@@ -442,8 +424,7 @@
               "RelativeToolTip": "..\\Library_Data\\clsUsersTokensData.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAiwBQAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-14T13:00:03.681Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-14T13:00:03.681Z"
             },
             {
               "$type": "Document",
@@ -455,8 +436,7 @@
               "RelativeToolTip": "..\\Models\\Logging\\clsLoggerService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-19T12:22:03.674Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-19T12:22:03.674Z"
             },
             {
               "$type": "Document",
@@ -468,8 +448,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAMAAAAAAAAAAAAAAALwAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-12T13:28:10.26Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-12T13:28:10.26Z"
             },
             {
               "$type": "Document",
@@ -481,8 +460,7 @@
               "RelativeToolTip": "..\\Library_Business\\clsCourse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAHIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T16:27:30.944Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T16:27:30.944Z"
             },
             {
               "$type": "Document",
@@ -494,8 +472,7 @@
               "RelativeToolTip": "..\\Library_Business\\clsFine.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAEwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T09:08:48.185Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T09:08:48.185Z"
             },
             {
               "$type": "Document",
@@ -507,12 +484,11 @@
               "RelativeToolTip": "..\\Library_Business\\clsLoan.cs",
               "ViewState": "AgIAABQAAAAAAAAAAAAcwDQAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T15:14:50.419Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-23T15:14:50.419Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 36,
               "Title": "clsMembershipTypeDTO.cs",
               "DocumentMoniker": "C:\\Programming\\Models\\DTOs\\clsMembershipTypeDTO.cs",
               "RelativeDocumentMoniker": "..\\Models\\DTOs\\clsMembershipTypeDTO.cs",
@@ -520,12 +496,11 @@
               "RelativeToolTip": "..\\Models\\DTOs\\clsMembershipTypeDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-18T14:51:06.488Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-18T14:51:06.488Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 37,
               "Title": "clsPasswordRequestDTO.cs",
               "DocumentMoniker": "C:\\Programming\\Models\\DTOs\\clsPasswordRequestDTO.cs",
               "RelativeDocumentMoniker": "..\\Models\\DTOs\\clsPasswordRequestDTO.cs",
@@ -533,12 +508,11 @@
               "RelativeToolTip": "..\\Models\\DTOs\\clsPasswordRequestDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-19T12:01:35.097Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-19T12:01:35.097Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 38,
               "Title": "clsUserDTO.cs",
               "DocumentMoniker": "C:\\Programming\\Models\\DTOs\\clsUserDTO.cs",
               "RelativeDocumentMoniker": "..\\Models\\DTOs\\clsUserDTO.cs",
@@ -546,12 +520,11 @@
               "RelativeToolTip": "..\\Models\\DTOs\\clsUserDTO.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAA7wBQAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T15:16:23.576Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-14T15:16:23.576Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 26,
               "Title": "clsUsersToken.cs",
               "DocumentMoniker": "C:\\Programming\\Library_Business\\clsUsersToken.cs",
               "RelativeDocumentMoniker": "..\\Library_Business\\clsUsersToken.cs",
@@ -559,12 +532,11 @@
               "RelativeToolTip": "..\\Library_Business\\clsUsersToken.cs",
               "ViewState": "AgIAAAIAAAAAAAAAAAAswAkAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-14T13:33:26.801Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-14T13:33:26.801Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 39,
               "Title": "clsUserDTOImportantFields.cs",
               "DocumentMoniker": "C:\\Programming\\Models\\DTOs\\clsUserDTOImportantFields.cs",
               "RelativeDocumentMoniker": "..\\Models\\DTOs\\clsUserDTOImportantFields.cs",
@@ -572,12 +544,11 @@
               "RelativeToolTip": "..\\Models\\DTOs\\clsUserDTOImportantFields.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-18T13:50:56.289Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-18T13:50:56.289Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 25,
               "Title": "clsUser.cs",
               "DocumentMoniker": "C:\\Programming\\Library_Business\\clsUser.cs",
               "RelativeDocumentMoniker": "..\\Library_Business\\clsUser.cs",
@@ -585,12 +556,11 @@
               "RelativeToolTip": "..\\Library_Business\\clsUser.cs",
               "ViewState": "AgIAAGYAAAAAAAAAAAAswHAAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T15:56:16.1Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-14T15:56:16.1Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 27,
               "Title": "clsBook.cs",
               "DocumentMoniker": "C:\\Programming\\Library_Business\\clsBook.cs",
               "RelativeDocumentMoniker": "..\\Library_Business\\clsBook.cs",
@@ -598,12 +568,11 @@
               "RelativeToolTip": "..\\Library_Business\\clsBook.cs",
               "ViewState": "AgIAABoAAAAAAAAAAAAxwCkAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-18T14:02:08.945Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-18T14:02:08.945Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 28,
               "Title": "clsMember.cs",
               "DocumentMoniker": "C:\\Programming\\Library_Business\\clsMember.cs",
               "RelativeDocumentMoniker": "..\\Library_Business\\clsMember.cs",
@@ -611,12 +580,11 @@
               "RelativeToolTip": "..\\Library_Business\\clsMember.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T16:33:02.864Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T16:33:02.864Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 29,
               "Title": "clsMembershipType.cs",
               "DocumentMoniker": "C:\\Programming\\Library_Business\\clsMembershipType.cs",
               "RelativeDocumentMoniker": "..\\Library_Business\\clsMembershipType.cs",
@@ -624,12 +592,11 @@
               "RelativeToolTip": "..\\Library_Business\\clsMembershipType.cs",
               "ViewState": "AgIAABUAAAAAAAAAAAAowAoAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-18T15:03:26.511Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-18T15:03:26.511Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 30,
               "Title": "clsAuthor.cs",
               "DocumentMoniker": "C:\\Programming\\Library_Business\\clsAuthor.cs",
               "RelativeDocumentMoniker": "..\\Library_Business\\clsAuthor.cs",
@@ -637,12 +604,11 @@
               "RelativeToolTip": "..\\Library_Business\\clsAuthor.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAEYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T08:23:03.145Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T08:23:03.145Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 31,
               "Title": "Library_System_API.http",
               "DocumentMoniker": "C:\\Programming\\Library_System_API\\Library_System_API.http",
               "RelativeDocumentMoniker": "Library_System_API.http",
@@ -650,12 +616,11 @@
               "RelativeToolTip": "Library_System_API.http",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2026-04-15T14:17:48.091Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-15T14:17:48.091Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 40,
               "Title": "RefreshRequest.cs",
               "DocumentMoniker": "C:\\Programming\\Models\\Auth\\RefreshRequest.cs",
               "RelativeDocumentMoniker": "..\\Models\\Auth\\RefreshRequest.cs",
@@ -663,12 +628,11 @@
               "RelativeToolTip": "..\\Models\\Auth\\RefreshRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-14T11:00:56.515Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-14T11:00:56.515Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 41,
               "Title": "LoginRequest.cs",
               "DocumentMoniker": "C:\\Programming\\Models\\Auth\\LoginRequest.cs",
               "RelativeDocumentMoniker": "..\\Models\\Auth\\LoginRequest.cs",
@@ -676,12 +640,11 @@
               "RelativeToolTip": "..\\Models\\Auth\\LoginRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-12T15:48:29.833Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-12T15:48:29.833Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 42,
               "Title": "LogoutRequest.cs",
               "DocumentMoniker": "C:\\Programming\\Models\\Auth\\LogoutRequest.cs",
               "RelativeDocumentMoniker": "..\\Models\\Auth\\LogoutRequest.cs",
@@ -689,12 +652,11 @@
               "RelativeToolTip": "..\\Models\\Auth\\LogoutRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-14T11:01:07.107Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-14T11:01:07.107Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 43,
               "Title": "TokenResponse.cs",
               "DocumentMoniker": "C:\\Programming\\Models\\Auth\\TokenResponse.cs",
               "RelativeDocumentMoniker": "..\\Models\\Auth\\TokenResponse.cs",
@@ -702,12 +664,11 @@
               "RelativeToolTip": "..\\Models\\Auth\\TokenResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-14T11:01:22.774Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-14T11:01:22.774Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 44,
               "Title": "clsCourseDTO.cs",
               "DocumentMoniker": "C:\\Programming\\Models\\DTOs\\clsCourseDTO.cs",
               "RelativeDocumentMoniker": "..\\Models\\DTOs\\clsCourseDTO.cs",
@@ -715,12 +676,11 @@
               "RelativeToolTip": "..\\Models\\DTOs\\clsCourseDTO.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T12:18:54.059Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T12:18:54.059Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 32,
               "Title": "HasUserPermissionsHandler.cs",
               "DocumentMoniker": "C:\\Programming\\Library_System_API\\Authorization\\Handlers\\HasUserPermissionsHandler.cs",
               "RelativeDocumentMoniker": "Authorization\\Handlers\\HasUserPermissionsHandler.cs",
@@ -728,12 +688,11 @@
               "RelativeToolTip": "Authorization\\Handlers\\HasUserPermissionsHandler.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-13T12:52:37.334Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-13T12:52:37.334Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 33,
               "Title": "HasUserPermissionsRequirement.cs",
               "DocumentMoniker": "C:\\Programming\\Library_System_API\\Authorization\\Requirements\\HasUserPermissionsRequirement.cs",
               "RelativeDocumentMoniker": "Authorization\\Requirements\\HasUserPermissionsRequirement.cs",
@@ -741,12 +700,11 @@
               "RelativeToolTip": "Authorization\\Requirements\\HasUserPermissionsRequirement.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-13T12:51:47.61Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-13T12:51:47.61Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 45,
               "Title": "clsAuthorDTO.cs",
               "DocumentMoniker": "C:\\Programming\\Models\\DTOs\\clsAuthorDTO.cs",
               "RelativeDocumentMoniker": "..\\Models\\DTOs\\clsAuthorDTO.cs",
@@ -754,12 +712,11 @@
               "RelativeToolTip": "..\\Models\\DTOs\\clsAuthorDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T08:22:33.525Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T08:22:33.525Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 34,
               "Title": "clsUtil.cs",
               "DocumentMoniker": "C:\\Programming\\Library_Business\\clsUtil.cs",
               "RelativeDocumentMoniker": "..\\Library_Business\\clsUtil.cs",
@@ -767,20 +724,18 @@
               "RelativeToolTip": "..\\Library_Business\\clsUtil.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAawBIAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T16:56:52.85Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-14T16:56:52.85Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 35,
               "Title": "Library_System_API",
               "DocumentMoniker": "C:\\Programming\\Library_System_API\\Library_System_API.csproj",
               "RelativeDocumentMoniker": "Library_System_API.csproj",
               "ToolTip": "C:\\Programming\\Library_System_API\\Library_System_API.csproj",
               "RelativeToolTip": "Library_System_API.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-04-12T13:28:44.556Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-12T13:28:44.556Z"
             },
             {
               "$type": "Document",
@@ -792,8 +747,7 @@
               "RelativeToolTip": "..\\Models\\DTOs\\clsBookDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T07:58:45.127Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T07:58:45.127Z"
             },
             {
               "$type": "Document",
@@ -805,8 +759,7 @@
               "RelativeToolTip": "..\\Models\\DTOs\\clsBookGetAllDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T11:15:44.969Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T11:15:44.969Z"
             },
             {
               "$type": "Document",
@@ -818,8 +771,7 @@
               "RelativeToolTip": "..\\Models\\DTOs\\clsCourseGetAllDTO.cs",
               "ViewState": "AgIAAAsAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T12:26:46.444Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T12:26:46.444Z"
             },
             {
               "$type": "Document",
@@ -831,8 +783,7 @@
               "RelativeToolTip": "..\\Models\\DTOs\\clsFineDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-03T09:09:39.541Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T09:09:39.541Z"
             },
             {
               "$type": "Document",
@@ -844,8 +795,7 @@
               "RelativeToolTip": "..\\Models\\DTOs\\clsLoanDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T15:25:06.452Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-23T15:25:06.452Z"
             },
             {
               "$type": "Document",
@@ -857,8 +807,7 @@
               "RelativeToolTip": "..\\Models\\DTOs\\clsLoanGetAllDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-23T14:45:50.214Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-23T14:45:50.214Z"
             },
             {
               "$type": "Document",
@@ -870,8 +819,7 @@
               "RelativeToolTip": "..\\Models\\DTOs\\clsMemberDTO.cs",
               "ViewState": "AgIAABoAAAAAAAAAAAAAwCcAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-18T15:33:23.957Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-18T15:33:23.957Z"
             }
           ]
         }
