@@ -1,16 +1,43 @@
 # 📚 Library Management System - API
-A RESTful API for a library management system, built with C# (ASP.NET Core), and SQL Server. The application manages library operations, including adding books, members, courses, loans, and fines.
-> 💡 This project is a web API of my Library Management System.  
+A backend RESTful API built with ASP.NET Core for managing a complete library system, including authentication, authorization, and transaction handling.
+> 💡 This project is a RESTful Web API of my Library Management System.  
 > You can view it on my [GitHub Profile](https://github.com/malakmuayad11/Library_System).
 
 ## ✅ Features
-- 📚 Register members, courses, and users.
-- 📅 Borrow and return books.
-- HTTPS and CORS.
-- 🔐 User authentication (JWT), role-based access(role-based authorization), and encrypting sensitive data.
-- Abuse 
-- 💾 Log errors in a text log file.
-- 📊 Store and retrieve data from SQL Server.
+
+### 📚 Library Operations
+- Manage books, members, courses, users, loans, and fines  
+- Borrow and return books with validation rules  
+- Track library transactions and statuses  
+
+### 🔐 Authentication & Authorization
+- JWT-based authentication system  
+- Role-based authorization  
+- Ownership-based access policies  
+- Refresh token support and secure logout  
+
+### 🗄️ Data Management
+- SQL Server database integration  
+- ADO.NET-based data access layer  
+- Structured CRUD operations for all entities  
+
+### 🧩 System Architecture
+- Three-tier architecture:
+  - API Layer  
+  - Business Logic Layer (BAL)  
+  - Data Access Layer (DAL)
+- Infrastructure for logging logic, and models (DTOs)
+- Clean separation of concerns  
+
+### 📊 Logging & Monitoring
+- Custom logging system  
+- Error logging to text files  
+- Audit logging for system actions  
+
+### 🌐 API Features
+- RESTful API design  
+- HTTPS support  
+- CORS enabled  
 
 ## ⬇️ Installation
 1. Clone the repository: git clone https://github.com/malakmuayad11/Library_System_API.git
@@ -23,7 +50,8 @@ A RESTful API for a library management system, built with C# (ASP.NET Core), and
 - C# (ASP.NET Core / .NET 8.0)
 - SQL Server
 - ADO.NET
-- Three-tier architecture
+- Three-tier architecture (API Layer, BAL, DAL, and Infrastructure)
+- Azure Key Vault integration
 
 ## 👩‍💻 Author
 **Malak Muayad**  
