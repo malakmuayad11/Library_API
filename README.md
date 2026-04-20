@@ -40,7 +40,7 @@ A backend RESTful API built with ASP.NET Core for managing a complete library sy
 - CORS enabled  
 
 ## ⬇️ Installation
-1. Clone the repository: git clone https://github.com/malakmuayad11/Library_API.git
+1. Clone the repository: git clone https://github.com/malakmuayad11/Library_System_API.git
 2. Restore the database from the backup file, using SQL Server Management Studio.
 3. Open the project in Visual Studio.
 4. Configure the connection string from the appsettings.json file.
